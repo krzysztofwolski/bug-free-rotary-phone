@@ -1,6 +1,0 @@
-query {
-  countries: Country {
-    _id
-    name
-  }
-}
