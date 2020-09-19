@@ -4,10 +4,10 @@ module.exports = {
       test: /\.(graphql|gql)$/,
       exclude: /node_modules/,
       loader: 'graphql-tag/loader',
-    });
-    return config;
+    })
+    return config
   },
   webpackDevMiddleware: (config) => {
-    return config;
+    return config
   },
-};
+}

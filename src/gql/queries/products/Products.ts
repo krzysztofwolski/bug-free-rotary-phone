@@ -1,14 +1,14 @@
-import { gql } from '@apollo/client';
+import { gql } from '@apollo/client'
 
-const MoneyFragment = gql`
+export const MoneyFragment = gql`
   fragment MoneyFragment on Money {
     amount
     currency
     localized
   }
-`;
+`
 
-const TaxedMoneyFragment = gql`
+export const TaxedMoneyFragment = gql`
   fragment TaxedMoneyFragment on TaxedMoney {
     currency
     gross {
@@ -22,9 +22,9 @@ const TaxedMoneyFragment = gql`
     }
   }
   ${MoneyFragment}
-`;
+`
 
-const FirstProductsQuery = gql`
+export const FirstProductsQuery = gql`
   query FirstProducts {
     products(first: 5) {
       edges {
@@ -40,4 +40,4 @@ const FirstProductsQuery = gql`
     }
     ${MoneyFragment}
   }
-`;
+`

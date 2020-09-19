@@ -1,14 +1,14 @@
-import * as Types from "./operations";
+import * as Types from './operations'
 
-import { gql } from "@apollo/client";
-import * as Apollo from "@apollo/client";
+import { gql } from '@apollo/client'
+import * as Apollo from '@apollo/client'
 export const MoneyFragmentFragmentDoc = gql`
   fragment MoneyFragment on Money {
     amount
     currency
     localized
   }
-`;
+`
 export const TaxedMoneyFragmentFragmentDoc = gql`
   fragment TaxedMoneyFragment on TaxedMoney {
     currency
@@ -23,7 +23,7 @@ export const TaxedMoneyFragmentFragmentDoc = gql`
     }
   }
   ${MoneyFragmentFragmentDoc}
-`;
+`
 export const FirstProductsDocument = gql`
   query FirstProducts {
     products(first: 5) {
@@ -40,7 +40,7 @@ export const FirstProductsDocument = gql`
     }
   }
   ${MoneyFragmentFragmentDoc}
-`;
+`
 
 /**
  * __useFirstProductsQuery__
@@ -66,7 +66,7 @@ export function useFirstProductsQuery(
   return Apollo.useQuery<
     Types.FirstProductsQuery,
     Types.FirstProductsQueryVariables
-  >(FirstProductsDocument, baseOptions);
+  >(FirstProductsDocument, baseOptions)
 }
 export function useFirstProductsLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
@@ -77,20 +77,20 @@ export function useFirstProductsLazyQuery(
   return Apollo.useLazyQuery<
     Types.FirstProductsQuery,
     Types.FirstProductsQueryVariables
-  >(FirstProductsDocument, baseOptions);
+  >(FirstProductsDocument, baseOptions)
 }
 export type FirstProductsQueryHookResult = ReturnType<
   typeof useFirstProductsQuery
->;
+>
 export type FirstProductsLazyQueryHookResult = ReturnType<
   typeof useFirstProductsLazyQuery
->;
+>
 export type FirstProductsQueryResult = Apollo.QueryResult<
   Types.FirstProductsQuery,
   Types.FirstProductsQueryVariables
->;
+>
 export function refetchFirstProductsQuery(
   variables?: Types.FirstProductsQueryVariables
 ) {
-  return { query: FirstProductsDocument, variables: variables };
+  return { query: FirstProductsDocument, variables: variables }
 }

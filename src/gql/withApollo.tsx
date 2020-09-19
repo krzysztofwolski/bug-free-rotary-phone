@@ -1,31 +1,32 @@
-import { NextPage } from 'next';
+/* eslint-disable */
+import { NextPage } from 'next'
 import {
   ApolloClient,
   NormalizedCacheObject,
   InMemoryCache,
   ApolloProvider,
   createHttpLink,
-} from '@apollo/client';
+} from '@apollo/client'
 
 export const withApollo = (Comp: NextPage) => (props: any) => {
   return (
     <ApolloProvider client={getApolloClient(null, props.apolloState)}>
       <Comp />
     </ApolloProvider>
-  );
-};
+  )
+}
 
 export const getApolloClient = (
   ctx?: any,
   initialState?: NormalizedCacheObject
-) => {
+): ApolloClient<NormalizedCacheObject> => {
   const httpLink = createHttpLink({
     uri: 'https://pwa.demo.saleor.rocks/graphql/',
     fetch,
-  });
-  const cache = new InMemoryCache().restore(initialState || {});
+  })
+  const cache = new InMemoryCache().restore(initialState || {})
   return new ApolloClient({
     link: httpLink,
     cache,
-  });
-};
+  })
+}

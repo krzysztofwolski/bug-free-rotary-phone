@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "lint": "eslint . --fix",
     "codegen": "graphql-codegen --config codegen.yml",
+    "plop": "plop",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
@@ -34,10 +36,18 @@
     "@storybook/react": "^6.0.21",
     "@types/node": "^14.0.27",
     "@types/react": "^16.9.46",
+    "@typescript-eslint/eslint-plugin": "^4.1.1",
+    "@typescript-eslint/parser": "^4.1.1",
     "babel-loader": "^8.1.0",
+    "eslint": "^7.9.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-config-prettier-react": "^0.0.24",
+    "eslint-plugin-prettier": "^3.1.4",
     "graphql-codegen-apollo-next-ssr": "^0.0.15",
+    "plop": "^2.7.4",
     "prettier": "^2.1.2",
     "react-is": "^16.13.1",
-    "typescript": "^3.9.7"
+    "typescript": "^4.0.3"
   }
 }

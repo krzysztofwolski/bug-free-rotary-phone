@@ -25,9 +25,5 @@
   "javascript.preferences.quoteStyle": "single",
   "prettier.jsxSingleQuote": true,
   "prettier.singleQuote": true,
-  "cSpell.words": [
-    "autogenerate",
-    "codegen",
-    "saleor"
-  ]
+  "cSpell.words": ["autogenerate", "codegen", "saleor"]
 }
