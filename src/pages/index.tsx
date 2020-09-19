@@ -5,12 +5,18 @@ import {
 
 import { withApollo } from '../gql/withApollo';
 import { GetServerSideProps } from 'next';
+import { Price } from '../components/atoms/Price/Price';
+import { Money } from '../gql/autogenerate/schemas';
 
 const HomePage: PageFirstProductsComp = (props) => (
   <div>
-    <p>tu powinny byc dane</p>
+    <p>Data:</p>
     {props.data?.products?.edges.map((product, k) => (
-      <div key={k}>{product.node.name}</div>
+      <div>
+        {product.node.name}
+        <Price key={k} money={product.node.minimalVariantPrice as Money} />
+        {product.node.minimalVariantPrice?.amount}
+      </div>
     ))}
   </div>
 );

@@ -2,7 +2,28 @@ import * as Types from "./operations";
 
 import { gql } from "@apollo/client";
 import * as Apollo from "@apollo/client";
-
+export const MoneyFragmentFragmentDoc = gql`
+  fragment MoneyFragment on Money {
+    amount
+    currency
+    localized
+  }
+`;
+export const TaxedMoneyFragmentFragmentDoc = gql`
+  fragment TaxedMoneyFragment on TaxedMoney {
+    currency
+    gross {
+      ...MoneyFragment
+    }
+    net {
+      ...MoneyFragment
+    }
+    tax {
+      ...MoneyFragment
+    }
+  }
+  ${MoneyFragmentFragmentDoc}
+`;
 export const FirstProductsDocument = gql`
   query FirstProducts {
     products(first: 5) {
@@ -11,10 +32,14 @@ export const FirstProductsDocument = gql`
           id
           name
           description
+          minimalVariantPrice {
+            ...MoneyFragment
+          }
         }
       }
     }
   }
+  ${MoneyFragmentFragmentDoc}
 `;
 
 /**

@@ -1,6 +1,30 @@
 import { gql } from '@apollo/client';
 
-const FIRST_PRODUCTS_QUERY = gql`
+const MoneyFragment = gql`
+  fragment MoneyFragment on Money {
+    amount
+    currency
+    localized
+  }
+`;
+
+const TaxedMoneyFragment = gql`
+  fragment TaxedMoneyFragment on TaxedMoney {
+    currency
+    gross {
+      ...MoneyFragment
+    }
+    net {
+      ...MoneyFragment
+    }
+    tax {
+      ...MoneyFragment
+    }
+  }
+  ${MoneyFragment}
+`;
+
+const FirstProductsQuery = gql`
   query FirstProducts {
     products(first: 5) {
       edges {
@@ -8,8 +32,12 @@ const FIRST_PRODUCTS_QUERY = gql`
           id
           name
           description
+          minimalVariantPrice {
+            ...MoneyFragment
+          }
         }
       }
     }
+    ${MoneyFragment}
   }
 `;

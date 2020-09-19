@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "codegen": "graphql-codegen --config codegen.yml"
+    "codegen": "graphql-codegen --config codegen.yml",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "@apollo/client": "^3.2.0",
@@ -16,6 +18,7 @@
     "react-dom": "16.13.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.11.6",
     "@graphql-codegen/cli": "1.17.8",
     "@graphql-codegen/fragment-matcher": "1.17.8",
     "@graphql-codegen/import-types-preset": "^1.17.9",
@@ -25,10 +28,16 @@
     "@graphql-codegen/typescript-graphql-files-modules": "1.17.8",
     "@graphql-codegen/typescript-operations": "1.17.8",
     "@graphql-codegen/typescript-react-apollo": "2.0.6",
+    "@storybook/addon-actions": "^6.0.21",
+    "@storybook/addon-essentials": "^6.0.21",
+    "@storybook/addon-links": "^6.0.21",
+    "@storybook/react": "^6.0.21",
     "@types/node": "^14.0.27",
     "@types/react": "^16.9.46",
+    "babel-loader": "^8.1.0",
     "graphql-codegen-apollo-next-ssr": "^0.0.15",
     "prettier": "^2.1.2",
+    "react-is": "^16.13.1",
     "typescript": "^3.9.7"
   }
 }
