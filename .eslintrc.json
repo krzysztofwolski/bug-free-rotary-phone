@@ -9,7 +9,8 @@
   },
   "plugins": [
     "@typescript-eslint",
-    "prettier"
+    "prettier",
+    "spellcheck"
   ],
   "extends": [
     "eslint:recommended",
@@ -19,6 +20,20 @@
     "plugin:prettier/recommended"
   ],
   "rules": {
-    "prettier/prettier": "error"
+    "prettier/prettier": "error",
+    "spellcheck/spell-checker": [
+      "warn",
+      {
+        "skipWords": [
+          "ctx",
+          "ssr",
+          "saleor",
+          "apollo",
+          "uri",
+          "gql",
+          "undiscounted"
+        ]
+      }
+    ]
   }
 }

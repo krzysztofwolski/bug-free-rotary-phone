@@ -5928,6 +5928,15 @@ eslint-plugin-prettier@^3.1.4:
   dependencies:
     prettier-linter-helpers "^1.0.0"
 
+eslint-plugin-spellcheck@^0.0.17:
+  version "0.0.17"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-spellcheck/-/eslint-plugin-spellcheck-0.0.17.tgz#ea3d27fa0fb443d3d821245d4d00137c788796ca"
+  integrity sha512-SjEPsqHgAODWgCusCXxzYqTkJHe8krun7UjekzhWkFlGM3ZTPto66ED+kQHBrOB3Mrqkx3oD0qf0sDmxyeCRCA==
+  dependencies:
+    globals "^13.0.0"
+    hunspell-spellchecker "^1.0.2"
+    lodash "^4.17.15"
+
 eslint-plugin-tsc@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-tsc/-/eslint-plugin-tsc-2.0.0.tgz#3033815cf51bb0dd9e3956549e54de2498797003"
@@ -6858,6 +6867,13 @@ globals@^12.1.0:
   dependencies:
     type-fest "^0.8.1"
 
+globals@^13.0.0:
+  version "13.2.0"
+  resolved "https://registry.yarnpkg.com/globals/-/globals-13.2.0.tgz#30b6814a1b7945d0b5b3795f81c275342bb17129"
+  integrity sha512-OjvFbGDlR7aIsLqFrraxoqIP3bb+wgp+Aarel5S56lwS3se4uUrwKkChnv1MqsMIv/Opexbmu7qCfHL9T0mBEg==
+  dependencies:
+    type-fest "^0.8.1"
+
 globalthis@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/globalthis/-/globalthis-1.0.1.tgz#40116f5d9c071f9e8fb0037654df1ab3a83b7ef9"
@@ -7310,6 +7326,11 @@ https-proxy-agent@5.0.0, https-proxy-agent@^5.0.0:
   dependencies:
     agent-base "6"
     debug "4"
+
+hunspell-spellchecker@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/hunspell-spellchecker/-/hunspell-spellchecker-1.0.2.tgz#a10b0bd2fa00a65ab62a4c6b734ce496d318910e"
+  integrity sha1-oQsL0voAplq2Kkxrc0zkltMYkQ4=
 
 iconv-lite@0.4.24, iconv-lite@^0.4.24:
   version "0.4.24"

@@ -7,7 +7,9 @@ import {
   createHttpLink,
 } from '@apollo/client'
 
+/* eslint-disable */
 export const withApollo = (PageComponent: NextPage) => (props: any) => {
+  /* eslint-enable */
   return (
     <ApolloProvider client={getApolloClient(null, props.apolloState)}>
       <PageComponent />

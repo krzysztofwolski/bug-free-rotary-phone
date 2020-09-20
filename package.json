@@ -45,6 +45,7 @@
     "eslint-config-prettier": "^6.11.0",
     "eslint-config-prettier-react": "^0.0.24",
     "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-spellcheck": "^0.0.17",
     "eslint-plugin-tsc": "^2.0.0",
     "graphql-codegen-apollo-next-ssr": "^0.0.15",
     "plop": "^2.7.4",
