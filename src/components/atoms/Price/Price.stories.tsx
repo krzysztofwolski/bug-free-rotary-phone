@@ -2,7 +2,7 @@ import React from 'react'
 // also exported from '@storybook/react' if you can deal with breaking changes in 6.1
 import { Story, Meta } from '@storybook/react/types-6-0'
 
-import { Price, PriceProps } from './Price'
+import { Price, IPriceProps } from './Price'
 
 export default {
   title: 'Atoms/Price',
@@ -12,7 +12,7 @@ export default {
   //   },
 } as Meta
 
-const Template: Story<PriceProps> = (args) => <Price {...args} />
+const Template: Story<IPriceProps> = (args) => <Price {...args} />
 
 export const USD = Template.bind({})
 USD.args = {
