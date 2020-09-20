@@ -52,18 +52,24 @@ export type IProductPricingInfoFragment = {
     >
   }
 
+export type IImageFragment = { __typename?: 'Image' } & Pick<
+  Types.IImage,
+  'alt' | 'url'
+>
+
 export type IProductDetailsFragment = { __typename?: 'Product' } & Pick<
   Types.IProduct,
   'id' | 'name' | 'description'
 > & {
+    thumbnail?: Types.Maybe<{ __typename?: 'Image' } & IImageFragment>
     pricing?: Types.Maybe<
       { __typename?: 'ProductPricingInfo' } & IProductPricingInfoFragment
     >
   }
 
-export type IFirstProductsVariables = Types.Exact<{ [key: string]: never }>
+export type IFirstProductsQueryVariables = Types.Exact<{ [key: string]: never }>
 
-export type IFirstProducts = { __typename?: 'Query' } & {
+export type IFirstProductsQuery = { __typename?: 'Query' } & {
   products?: Types.Maybe<
     { __typename?: 'ProductCountableConnection' } & {
       edges: Array<
@@ -75,9 +81,9 @@ export type IFirstProducts = { __typename?: 'Query' } & {
   >
 }
 
-export type IHomepageShopVariables = Types.Exact<{ [key: string]: never }>
+export type IHomepageShopQueryVariables = Types.Exact<{ [key: string]: never }>
 
-export type IHomepageShop = { __typename?: 'Query' } & {
+export type IHomepageShopQuery = { __typename?: 'Query' } & {
   shop: { __typename?: 'Shop' } & Pick<Types.IShop, 'defaultCurrency'> & {
       homepageCollection?: Types.Maybe<
         { __typename?: 'Collection' } & ICollectionFragment

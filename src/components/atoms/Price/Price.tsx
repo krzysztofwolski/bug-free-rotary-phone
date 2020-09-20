@@ -1,8 +1,8 @@
 import React from 'react'
-import { Money } from '../../../gql/autogenerate/schemas'
+import { IMoney } from '../../../gql/generated/schemas'
 
 export interface PriceProps {
-  money?: Money
+  money?: IMoney
 }
 
 export const Price: React.FC<PriceProps> = ({ money }) => {

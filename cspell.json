@@ -19,6 +19,6 @@
         ".git", // Ignore the .git directory
         "*.dll", // Ignore all .dll files.
         "**/*.dll", // Ignore all .dll files
-        "src/gql/autogenerate/**" // Ignore all .dll files
+        "src/gql/generated/**" // Ignore all .dll files
     ]
 }

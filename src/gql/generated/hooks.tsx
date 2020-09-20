@@ -2,13 +2,19 @@ import * as Types from './interfaces'
 
 import { gql } from '@apollo/client'
 import * as Apollo from '@apollo/client'
-export const IMoneyFragment = gql`
+export const ImageFragmentDoc = gql`
+  fragment ImageFragment on Image {
+    alt
+    url
+  }
+`
+export const MoneyFragmentDoc = gql`
   fragment MoneyFragment on Money {
     amount
     currency
   }
 `
-export const ITaxedMoneyFragment = gql`
+export const TaxedMoneyFragmentDoc = gql`
   fragment TaxedMoneyFragment on TaxedMoney {
     currency
     gross {
@@ -21,9 +27,9 @@ export const ITaxedMoneyFragment = gql`
       ...MoneyFragment
     }
   }
-  ${IMoneyFragment}
+  ${MoneyFragmentDoc}
 `
-export const ITaxedMoneyRangeFragment = gql`
+export const TaxedMoneyRangeFragmentDoc = gql`
   fragment TaxedMoneyRangeFragment on TaxedMoneyRange {
     start {
       ...TaxedMoneyFragment
@@ -32,9 +38,9 @@ export const ITaxedMoneyRangeFragment = gql`
       ...TaxedMoneyFragment
     }
   }
-  ${ITaxedMoneyFragment}
+  ${TaxedMoneyFragmentDoc}
 `
-export const IProductPricingInfoFragment = gql`
+export const ProductPricingInfoFragmentDoc = gql`
   fragment ProductPricingInfoFragment on ProductPricingInfo {
     onSale
     discount {
@@ -53,21 +59,25 @@ export const IProductPricingInfoFragment = gql`
       ...TaxedMoneyRangeFragment
     }
   }
-  ${ITaxedMoneyFragment}
-  ${ITaxedMoneyRangeFragment}
+  ${TaxedMoneyFragmentDoc}
+  ${TaxedMoneyRangeFragmentDoc}
 `
-export const IProductDetailsFragment = gql`
+export const ProductDetailsFragmentDoc = gql`
   fragment ProductDetailsFragment on Product {
     id
     name
     description
+    thumbnail(size: 500) {
+      ...ImageFragment
+    }
     pricing {
       ...ProductPricingInfoFragment
     }
   }
-  ${IProductPricingInfoFragment}
+  ${ImageFragmentDoc}
+  ${ProductPricingInfoFragmentDoc}
 `
-export const ICollectionFragment = gql`
+export const CollectionFragmentDoc = gql`
   fragment CollectionFragment on Collection {
     id
     slug
@@ -81,10 +91,10 @@ export const ICollectionFragment = gql`
       }
     }
   }
-  ${IProductDetailsFragment}
+  ${ProductDetailsFragmentDoc}
 `
-export const FirstProductsDocument = gql`
-  query FirstProducts {
+export const FirstProductsQueryDocument = gql`
+  query FirstProductsQuery {
     products(first: 5) {
       edges {
         node {
@@ -93,7 +103,7 @@ export const FirstProductsDocument = gql`
       }
     }
   }
-  ${IProductDetailsFragment}
+  ${ProductDetailsFragmentDoc}
 `
 
 /**
@@ -113,43 +123,43 @@ export const FirstProductsDocument = gql`
  */
 export function useFirstProductsQuery(
   baseOptions?: Apollo.QueryHookOptions<
-    Types.FirstProductsQuery,
-    Types.FirstProductsQueryVariables
+    Types.IFirstProductsQuery,
+    Types.IFirstProductsQueryVariables
   >
 ) {
   return Apollo.useQuery<
-    Types.FirstProductsQuery,
-    Types.FirstProductsQueryVariables
-  >(FirstProductsDocument, baseOptions)
+    Types.IFirstProductsQuery,
+    Types.IFirstProductsQueryVariables
+  >(FirstProductsQueryDocument, baseOptions)
 }
-export function useFirstProductsLazyQuery(
+export function useFirstProductsQueryLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
-    Types.FirstProductsQuery,
-    Types.FirstProductsQueryVariables
+    Types.IFirstProductsQuery,
+    Types.IFirstProductsQueryVariables
   >
 ) {
   return Apollo.useLazyQuery<
-    Types.FirstProductsQuery,
-    Types.FirstProductsQueryVariables
-  >(FirstProductsDocument, baseOptions)
+    Types.IFirstProductsQuery,
+    Types.IFirstProductsQueryVariables
+  >(FirstProductsQueryDocument, baseOptions)
 }
 export type FirstProductsQueryHookResult = ReturnType<
   typeof useFirstProductsQuery
 >
-export type FirstProductsLazyQueryHookResult = ReturnType<
-  typeof useFirstProductsLazyQuery
+export type FirstProductsQueryLazyQueryHookResult = ReturnType<
+  typeof useFirstProductsQueryLazyQuery
 >
-export type FirstProductsQueryResult = Apollo.QueryResult<
-  Types.FirstProductsQuery,
-  Types.FirstProductsQueryVariables
+export type FirstProductsQueryQueryResult = Apollo.QueryResult<
+  Types.IFirstProductsQuery,
+  Types.IFirstProductsQueryVariables
 >
 export function refetchFirstProductsQuery(
-  variables?: Types.FirstProductsQueryVariables
+  variables?: Types.IFirstProductsQueryVariables
 ) {
-  return { query: FirstProductsDocument, variables: variables }
+  return { query: FirstProductsQueryDocument, variables: variables }
 }
-export const HomepageShopDocument = gql`
-  query HomepageShop {
+export const HomepageShopQueryDocument = gql`
+  query HomepageShopQuery {
     shop {
       defaultCurrency
       homepageCollection {
@@ -157,7 +167,7 @@ export const HomepageShopDocument = gql`
       }
     }
   }
-  ${ICollectionFragment}
+  ${CollectionFragmentDoc}
 `
 
 /**
@@ -177,38 +187,38 @@ export const HomepageShopDocument = gql`
  */
 export function useHomepageShopQuery(
   baseOptions?: Apollo.QueryHookOptions<
-    Types.HomepageShopQuery,
-    Types.HomepageShopQueryVariables
+    Types.IHomepageShopQuery,
+    Types.IHomepageShopQueryVariables
   >
 ) {
   return Apollo.useQuery<
-    Types.HomepageShopQuery,
-    Types.HomepageShopQueryVariables
-  >(HomepageShopDocument, baseOptions)
+    Types.IHomepageShopQuery,
+    Types.IHomepageShopQueryVariables
+  >(HomepageShopQueryDocument, baseOptions)
 }
-export function useHomepageShopLazyQuery(
+export function useHomepageShopQueryLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
-    Types.HomepageShopQuery,
-    Types.HomepageShopQueryVariables
+    Types.IHomepageShopQuery,
+    Types.IHomepageShopQueryVariables
   >
 ) {
   return Apollo.useLazyQuery<
-    Types.HomepageShopQuery,
-    Types.HomepageShopQueryVariables
-  >(HomepageShopDocument, baseOptions)
+    Types.IHomepageShopQuery,
+    Types.IHomepageShopQueryVariables
+  >(HomepageShopQueryDocument, baseOptions)
 }
 export type HomepageShopQueryHookResult = ReturnType<
   typeof useHomepageShopQuery
 >
-export type HomepageShopLazyQueryHookResult = ReturnType<
-  typeof useHomepageShopLazyQuery
+export type HomepageShopQueryLazyQueryHookResult = ReturnType<
+  typeof useHomepageShopQueryLazyQuery
 >
-export type HomepageShopQueryResult = Apollo.QueryResult<
-  Types.HomepageShopQuery,
-  Types.HomepageShopQueryVariables
+export type HomepageShopQueryQueryResult = Apollo.QueryResult<
+  Types.IHomepageShopQuery,
+  Types.IHomepageShopQueryVariables
 >
 export function refetchHomepageShopQuery(
-  variables?: Types.HomepageShopQueryVariables
+  variables?: Types.IHomepageShopQueryVariables
 ) {
-  return { query: HomepageShopDocument, variables: variables }
+  return { query: HomepageShopQueryDocument, variables: variables }
 }

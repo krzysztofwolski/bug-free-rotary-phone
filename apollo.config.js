@@ -1,11 +1,10 @@
 module.exports = {
   client: {
-    addTypename: true,
-    includes: ['src/**/*.ts', 'src/**/*.tsx'],
-    name: 'dashboard',
+      excludes: ['src/gql/generated/**/*'],
+      includes: ['src/gql/queries/**/*.{graphql,js,ts,jsx,tsx}'],
     service: {
-      url: 'https://pwa.demo.saleor.rocks/graphql/',
-      name: 'saleor@demo',
+      name: 'my-graphql-app',
+      url: 'schema.graphql',
     },
   },
 }

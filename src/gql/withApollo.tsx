@@ -1,5 +1,4 @@
-/* eslint-disable */
-import { NextPage } from 'next'
+import { NextPage, NextPageContext } from 'next'
 import {
   ApolloClient,
   NormalizedCacheObject,
@@ -8,16 +7,16 @@ import {
   createHttpLink,
 } from '@apollo/client'
 
-export const withApollo = (Comp: NextPage) => (props: any) => {
+export const withApollo = (PageComponent: NextPage) => (props: any) => {
   return (
     <ApolloProvider client={getApolloClient(null, props.apolloState)}>
-      <Comp />
+      <PageComponent />
     </ApolloProvider>
   )
 }
 
 export const getApolloClient = (
-  ctx?: any,
+  ctx?: NextPageContext | null,
   initialState?: NormalizedCacheObject
 ): ApolloClient<NormalizedCacheObject> => {
   const httpLink = createHttpLink({

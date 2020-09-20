@@ -10,21 +10,21 @@ import React from 'react'
 import { getApolloClient } from '../withApollo'
 export async function getServerPageFirstProducts<T extends true | false>(
   options: Omit<
-    Apollo.QueryOptions<Types.FirstProductsQueryVariables>,
+    Apollo.QueryOptions<Types.IFirstProductsQueryVariables>,
     'query'
   >,
   ctx?: any,
   rawQueryResult?: T
 ): Promise<{
   props: T extends true
-    ? Apollo.ApolloQueryResult<Types.FirstProductsQuery>
+    ? Apollo.ApolloQueryResult<Types.IFirstProductsQuery>
     : { apolloState: NormalizedCacheObject }
 }> {
   const apolloClient = getApolloClient(ctx)
 
-  const data = await apolloClient.query<Types.FirstProductsQuery>({
+  const data = await apolloClient.query<Types.IFirstProductsQuery>({
     ...options,
-    query: Operations.FirstProductsDocument,
+    query: Operations.FirstProductsQueryDocument,
   })
   if (rawQueryResult) {
     return {
@@ -42,29 +42,32 @@ export const useFirstProducts = (
   optionsFunc?: (
     router: NextRouter
   ) => QueryHookOptions<
-    Types.FirstProductsQuery,
-    Types.FirstProductsQueryVariables
+    Types.IFirstProductsQuery,
+    Types.IFirstProductsQueryVariables
   >
 ) => {
   const router = useRouter()
   const options = optionsFunc ? optionsFunc(router) : {}
-  return useQuery(Operations.FirstProductsDocument, options)
+  return useQuery(Operations.FirstProductsQueryDocument, options)
 }
 export type PageFirstProductsComp = React.FC<{
-  data?: Types.FirstProductsQuery
+  data?: Types.IFirstProductsQuery
   error?: Apollo.ApolloError
 }>
 export const withPageFirstProducts = (
   optionsFunc?: (
     router: NextRouter
   ) => QueryHookOptions<
-    Types.FirstProductsQuery,
-    Types.FirstProductsQueryVariables
+    Types.IFirstProductsQuery,
+    Types.IFirstProductsQueryVariables
   >
 ) => (WrappedComponent: PageFirstProductsComp): NextPage => (props) => {
   const router = useRouter()
   const options = optionsFunc ? optionsFunc(router) : {}
-  const { data, error } = useQuery(Operations.FirstProductsDocument, options)
+  const { data, error } = useQuery(
+    Operations.FirstProductsQueryDocument,
+    options
+  )
   return <WrappedComponent {...props} data={data} error={error} />
 }
 export const ssrFirstProducts = {
@@ -73,19 +76,22 @@ export const ssrFirstProducts = {
   usePage: useFirstProducts,
 }
 export async function getServerPageHomeShop<T extends true | false>(
-  options: Omit<Apollo.QueryOptions<Types.HomepageShopQueryVariables>, 'query'>,
+  options: Omit<
+    Apollo.QueryOptions<Types.IHomepageShopQueryVariables>,
+    'query'
+  >,
   ctx?: any,
   rawQueryResult?: T
 ): Promise<{
   props: T extends true
-    ? Apollo.ApolloQueryResult<Types.HomepageShopQuery>
+    ? Apollo.ApolloQueryResult<Types.IHomepageShopQuery>
     : { apolloState: NormalizedCacheObject }
 }> {
   const apolloClient = getApolloClient(ctx)
 
-  const data = await apolloClient.query<Types.HomepageShopQuery>({
+  const data = await apolloClient.query<Types.IHomepageShopQuery>({
     ...options,
-    query: Operations.HomepageShopDocument,
+    query: Operations.HomepageShopQueryDocument,
   })
   if (rawQueryResult) {
     return {
@@ -103,29 +109,32 @@ export const useHomeShop = (
   optionsFunc?: (
     router: NextRouter
   ) => QueryHookOptions<
-    Types.HomepageShopQuery,
-    Types.HomepageShopQueryVariables
+    Types.IHomepageShopQuery,
+    Types.IHomepageShopQueryVariables
   >
 ) => {
   const router = useRouter()
   const options = optionsFunc ? optionsFunc(router) : {}
-  return useQuery(Operations.HomepageShopDocument, options)
+  return useQuery(Operations.HomepageShopQueryDocument, options)
 }
 export type PageHomeShopComp = React.FC<{
-  data?: Types.HomepageShopQuery
+  data?: Types.IHomepageShopQuery
   error?: Apollo.ApolloError
 }>
 export const withPageHomeShop = (
   optionsFunc?: (
     router: NextRouter
   ) => QueryHookOptions<
-    Types.HomepageShopQuery,
-    Types.HomepageShopQueryVariables
+    Types.IHomepageShopQuery,
+    Types.IHomepageShopQueryVariables
   >
 ) => (WrappedComponent: PageHomeShopComp): NextPage => (props) => {
   const router = useRouter()
   const options = optionsFunc ? optionsFunc(router) : {}
-  const { data, error } = useQuery(Operations.HomepageShopDocument, options)
+  const { data, error } = useQuery(
+    Operations.HomepageShopQueryDocument,
+    options
+  )
   return <WrappedComponent {...props} data={data} error={error} />
 }
 export const ssrHomeShop = {

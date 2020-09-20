@@ -1,28 +1,18 @@
-import {
-  ssrFirstProducts,
-  PageFirstProductsComp,
-} from '../gql/autogenerate/page'
+import { PageHomeShopComp, ssrHomeShop } from '../gql/generated/page'
 
 import { withApollo } from '../gql/withApollo'
 import { GetServerSideProps } from 'next'
-import { Price } from '../components/atoms/Price/Price'
-import { Money } from '../gql/autogenerate/schemas'
+import { HomepageTemplate } from '../components/templates'
 
-const HomePage: PageFirstProductsComp = (props) => (
-  <div>
-    <p>Data:</p>
-    {props.data?.products?.edges.map((product, k) => (
-      <div>
-        {product.node.name}
-        <Price key={k} money={product.node.minimalVariantPrice as Money} />
-        {product.node.minimalVariantPrice?.amount}
-      </div>
-    ))}
-  </div>
+const HomePage: PageHomeShopComp = (props) => (
+  <HomepageTemplate
+    defaultCurrency={props.data?.shop.defaultCurrency}
+    homepageCollection={props.data?.shop.homepageCollection}
+  />
 )
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  return await ssrFirstProducts.getServerPage({}, ctx)
+  return await ssrHomeShop.getServerPage({}, ctx)
 }
 
-export default withApollo(ssrFirstProducts.withPage(() => ({}))(HomePage))
+export default withApollo(ssrHomeShop.withPage(() => ({}))(HomePage))
