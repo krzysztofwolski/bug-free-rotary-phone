@@ -6,7 +6,7 @@ hooks:
     - prettier --write
 generates:
   # Get schemas from server
-  src/gql/autogenerate/schemas.tsx:
+  src/gql/generated/schemas.tsx:
     documents: "src/gql/queries/**/**.ts"
     plugins:
       - typescript
@@ -15,7 +15,7 @@ generates:
       typesSuffix: ""
       omitOperationSuffix: true
   # Create operations based on queries
-  src/gql/autogenerate/interfaces.tsx:
+  src/gql/generated/interfaces.tsx:
     documents: "src/gql/queries/**/**.ts"
     preset: import-types
     presetConfig:
@@ -29,7 +29,7 @@ generates:
       - typescript-operations
   # 1. Export GraphQL documents
   # 2. React interface
-  src/gql/autogenerate/hooks.tsx:
+  src/gql/generated/hooks.tsx:
     documents: "src/gql/queries/**/**.ts"
     preset: import-types
     presetConfig:
@@ -40,12 +40,13 @@ generates:
       withHooks: true
       reactApolloVersion: 3
       withRefetchFn: true
-      fragmentVariablePrefix: I
-      fragmentVariableSuffix: ""
-  src/gql/autogenerate/page.tsx:
+      dedupeOperationSuffix: true
+      typesPrefix: I
+  src/gql/generated/page.tsx:
     config:
       documentMode: external
-      # importDocumentNodeExternallyFrom: ./hooks.tsx
+      dedupeOperationSuffix: true
+      typesPrefix: I
       importDocumentNodeExternallyFrom: ./hooks.tsx
       reactApolloVersion: 3
       withHooks: true
