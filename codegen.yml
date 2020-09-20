@@ -1,52 +1,58 @@
 overwrite: true
-schema: 'https://pwa.demo.saleor.rocks/graphql/'
-documents: 'src/gql/**/*.ts'
+schema: "./schema.graphql"
+documents: "src/gql/queries/**/*.ts"
 hooks:
   afterAllFileWrite:
     - prettier --write
 generates:
   # Get schemas from server
   src/gql/autogenerate/schemas.tsx:
-    documents: 'src/gql/queries/**/**.ts'
+    documents: "src/gql/queries/**/**.ts"
     plugins:
       - typescript
+    config:
+      typesPrefix: I
+      typesSuffix: ""
+      omitOperationSuffix: true
   # Create operations based on queries
-  src/gql/autogenerate/operations.tsx:
-    documents: 'src/gql/queries/**/**.ts'
+  src/gql/autogenerate/interfaces.tsx:
+    documents: "src/gql/queries/**/**.ts"
     preset: import-types
     presetConfig:
       typesPath: ./schemas
       typesPrefix: I
+    config:
+      typesPrefix: I
+      typesSuffix: ""
+      omitOperationSuffix: true
     plugins:
       - typescript-operations
   # 1. Export GraphQL documents
   # 2. React interface
   src/gql/autogenerate/hooks.tsx:
-    documents: 'src/gql/queries/**/**.ts'
+    documents: "src/gql/queries/**/**.ts"
     preset: import-types
     presetConfig:
-      typesPath: ./operations
+      typesPath: ./interfaces
     plugins:
       - typescript-react-apollo
     config:
       withHooks: true
       reactApolloVersion: 3
       withRefetchFn: true
+      fragmentVariablePrefix: I
+      fragmentVariableSuffix: ""
   src/gql/autogenerate/page.tsx:
     config:
       documentMode: external
+      # importDocumentNodeExternallyFrom: ./hooks.tsx
       importDocumentNodeExternallyFrom: ./hooks.tsx
       reactApolloVersion: 3
       withHooks: true
-      # withHOC: false
-      # excludePatterns: 'getComments'
-      # excludePatternsOptions: 'i'
-      # customDataIdFromObjectName: 'test'
-      # customDataIdFromObjectImport: 'abc'
-      apolloClientInstanceImport: '../withApollo'
+      apolloClientInstanceImport: "../withApollo"
     preset: import-types
     presetConfig:
-      typesPath: ./operations
+      typesPath: ./interfaces
     plugins:
       - graphql-codegen-apollo-next-ssr
 pluckConfig:
