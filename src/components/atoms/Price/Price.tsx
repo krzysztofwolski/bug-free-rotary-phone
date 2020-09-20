@@ -1,5 +1,5 @@
+import { IMoney } from 'gql/generated/schemas'
 import React from 'react'
-import { IMoney } from '../../../gql/generated/schemas'
 
 export interface IPriceProps {
   money?: IMoney

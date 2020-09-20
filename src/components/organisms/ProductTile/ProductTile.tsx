@@ -1,6 +1,6 @@
 import React from 'react'
-import { IProductDetailsFragment } from '../../../gql/generated/interfaces'
-import { ProductPricing } from '../../molecules'
+import { IProductDetailsFragment } from 'gql/generated/interfaces'
+import { ProductPricing } from 'components/molecules'
 
 export interface IProductTileProps {
   product?: IProductDetailsFragment

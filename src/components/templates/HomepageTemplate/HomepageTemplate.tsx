@@ -1,6 +1,6 @@
 import React from 'react'
-import { ICollectionFragment } from '../../../gql/generated/interfaces'
-import { ProductTile } from '../../organisms'
+import { ICollectionFragment } from 'gql/generated/interfaces'
+import { ProductTile } from 'components/organisms'
 
 export interface HomepageTemplateProps {
   homepageCollection?: ICollectionFragment | null

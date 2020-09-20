@@ -1,8 +1,8 @@
-import { PageHomeShopComp, ssrHomeShop } from '../gql/generated/page'
+import { PageHomeShopComp, ssrHomeShop } from 'gql/generated/page'
 
-import { withApollo } from '../gql/withApollo'
+import { withApollo } from 'gql/withApollo'
 import { GetServerSideProps } from 'next'
-import { HomepageTemplate } from '../components/templates'
+import { HomepageTemplate } from 'components/templates'
 
 const HomePage: PageHomeShopComp = (props) => (
   <HomepageTemplate

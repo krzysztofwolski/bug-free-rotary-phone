@@ -1,8 +1,8 @@
+import { Price } from 'components/atoms'
+import { IProductPricingInfoFragment } from 'gql/generated/interfaces'
+import { IMoney } from 'gql/generated/schemas'
 import React from 'react'
-import { IProductPricingInfoFragment } from '../../../gql/generated/interfaces'
-import { IMoney } from '../../../gql/generated/schemas'
-import { isGrossPriceEqual } from '../../../utils'
-import { Price } from '../../atoms'
+import { isGrossPriceEqual } from 'utils'
 
 export interface ProductPricingProps {
   pricing: IProductPricingInfoFragment

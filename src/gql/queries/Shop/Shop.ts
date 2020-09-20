@@ -1,5 +1,5 @@
+import { CollectionFragment } from 'gql/queries/Products/Collection'
 import { gql } from '@apollo/client'
-import { CollectionFragment } from '../Products/Collection'
 
 export const HomepageShopQuery = gql` 
   query HomepageShopQuery {

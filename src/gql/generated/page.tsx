@@ -7,7 +7,7 @@ import { NormalizedCacheObject } from '@apollo/client'
 import { QueryHookOptions, useQuery } from '@apollo/client'
 import * as Apollo from '@apollo/client'
 import React from 'react'
-import { getApolloClient } from '../withApollo'
+import { getApolloClient } from 'gql/withApollo'
 export async function getServerPageFirstProducts<T extends true | false>(
   options: Omit<
     Apollo.QueryOptions<Types.IFirstProductsQueryVariables>,
@@ -17,8 +17,8 @@ export async function getServerPageFirstProducts<T extends true | false>(
   rawQueryResult?: T
 ): Promise<{
   props: T extends true
-    ? Apollo.ApolloQueryResult<Types.IFirstProductsQuery>
-    : { apolloState: NormalizedCacheObject }
+  ? Apollo.ApolloQueryResult<Types.IFirstProductsQuery>
+  : { apolloState: NormalizedCacheObject }
 }> {
   const apolloClient = getApolloClient(ctx)
 
@@ -84,8 +84,8 @@ export async function getServerPageHomeShop<T extends true | false>(
   rawQueryResult?: T
 ): Promise<{
   props: T extends true
-    ? Apollo.ApolloQueryResult<Types.IHomepageShopQuery>
-    : { apolloState: NormalizedCacheObject }
+  ? Apollo.ApolloQueryResult<Types.IHomepageShopQuery>
+  : { apolloState: NormalizedCacheObject }
 }> {
   const apolloClient = getApolloClient(ctx)
 

@@ -1,6 +1,6 @@
 import type { AppProps } from 'next/app'
 
-import '../styles/globals.css'
+import 'styles/globals.css'
 
 /* eslint-disable */
 function MyApp({ Component, pageProps }: AppProps) {
