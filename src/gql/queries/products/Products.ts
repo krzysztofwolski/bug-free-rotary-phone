@@ -72,6 +72,10 @@ export const ProductDetailsFragment = gql`
     id
     name
     description
+    category {
+      id
+      name
+    }
     thumbnail(size: 500) {
       ...ImageFragment
     }

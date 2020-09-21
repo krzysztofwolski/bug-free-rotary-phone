@@ -61,6 +61,9 @@ export type IProductDetailsFragment = { __typename?: 'Product' } & Pick<
   Types.IProduct,
   'id' | 'name' | 'description'
 > & {
+    category?: Types.Maybe<
+      { __typename?: 'Category' } & Pick<Types.ICategory, 'id' | 'name'>
+    >
     thumbnail?: Types.Maybe<{ __typename?: 'Image' } & IImageFragment>
     pricing?: Types.Maybe<
       { __typename?: 'ProductPricingInfo' } & IProductPricingInfoFragment
@@ -81,12 +84,37 @@ export type IFirstProductsQuery = { __typename?: 'Query' } & {
   >
 }
 
+export type IMenuItemFragment = { __typename?: 'MenuItem' } & Pick<
+  Types.IMenuItem,
+  'id' | 'name'
+> & {
+    category?: Types.Maybe<
+      { __typename?: 'Category' } & Pick<
+        Types.ICategory,
+        'id' | 'name' | 'slug'
+      >
+    >
+  }
+
 export type IHomepageShopQueryVariables = Types.Exact<{ [key: string]: never }>
 
 export type IHomepageShopQuery = { __typename?: 'Query' } & {
   shop: { __typename?: 'Shop' } & Pick<Types.IShop, 'defaultCurrency'> & {
       homepageCollection?: Types.Maybe<
         { __typename?: 'Collection' } & ICollectionFragment
+      >
+      navigation?: Types.Maybe<
+        { __typename?: 'Navigation' } & {
+          main?: Types.Maybe<
+            { __typename?: 'Menu' } & Pick<Types.IMenu, 'id'> & {
+                items?: Types.Maybe<
+                  Array<
+                    Types.Maybe<{ __typename?: 'MenuItem' } & IMenuItemFragment>
+                  >
+                >
+              }
+          >
+        }
       >
     }
 }

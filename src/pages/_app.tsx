@@ -1,3 +1,4 @@
+import { ChakraProvider } from '@chakra-ui/core'
 import type { AppProps } from 'next/app'
 
 import 'styles/globals.css'
@@ -6,9 +7,9 @@ import 'styles/globals.css'
 function MyApp({ Component, pageProps }: AppProps) {
   /* eslint-enable */
   return (
-    // <ApolloProvider client={client}>
-    <Component {...pageProps} />
-    // </ApolloProvider>
+    <ChakraProvider resetCSS>
+      <Component {...pageProps} />
+    </ChakraProvider>
   )
 }
 

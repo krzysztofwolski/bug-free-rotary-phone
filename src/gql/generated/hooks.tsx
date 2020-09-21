@@ -67,6 +67,10 @@ export const ProductDetailsFragmentDoc = gql`
     id
     name
     description
+    category {
+      id
+      name
+    }
     thumbnail(size: 500) {
       ...ImageFragment
     }
@@ -92,6 +96,17 @@ export const CollectionFragmentDoc = gql`
     }
   }
   ${ProductDetailsFragmentDoc}
+`
+export const MenuItemFragmentDoc = gql`
+  fragment MenuItemFragment on MenuItem {
+    id
+    name
+    category {
+      id
+      name
+      slug
+    }
+  }
 `
 export const FirstProductsQueryDocument = gql`
   query FirstProductsQuery {
@@ -165,9 +180,18 @@ export const HomepageShopQueryDocument = gql`
       homepageCollection {
         ...CollectionFragment
       }
+      navigation {
+        main {
+          id
+          items {
+            ...MenuItemFragment
+          }
+        }
+      }
     }
   }
   ${CollectionFragmentDoc}
+  ${MenuItemFragmentDoc}
 `
 
 /**

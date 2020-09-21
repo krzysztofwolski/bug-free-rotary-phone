@@ -1,28 +1,24 @@
 import React from 'react'
 import { ICollectionFragment } from 'gql/generated/interfaces'
 import { ProductTile } from 'components/organisms'
+import { Grid } from '@chakra-ui/core'
+import { DefaultLayout } from '../DefaultLayout'
 
 export interface HomepageTemplateProps {
   homepageCollection?: ICollectionFragment | null
-  defaultCurrency?: string
 }
 
 export const HomepageTemplate: React.FC<HomepageTemplateProps> = ({
   homepageCollection,
-  defaultCurrency,
 }) => {
-  const name = 'HomepageTemplate'
   return (
     <>
-      <h1>{name}</h1>
-      <div>{defaultCurrency}</div>
-
       {!!homepageCollection && (
-        <div>
+        <Grid templateColumns="repeat(4, 1fr)" gap={6}>
           {homepageCollection.products?.edges.map((productNode) => (
             <ProductTile product={productNode.node} />
           ))}
-        </div>
+        </Grid>
       )}
     </>
   )

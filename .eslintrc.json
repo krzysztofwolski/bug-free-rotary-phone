@@ -31,7 +31,8 @@
           "apollo",
           "uri",
           "gql",
-          "undiscounted"
+          "undiscounted",
+          "chakra"
         ]
       }
     ]
