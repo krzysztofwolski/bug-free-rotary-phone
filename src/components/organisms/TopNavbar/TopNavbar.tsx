@@ -1,11 +1,24 @@
 import React from 'react'
-import { Box, Heading, Flex, Text, Button } from '@chakra-ui/core'
-
-const menuItem = (label: string, url: string) => (
-  <Text mt={{ base: 4, md: 0 }} mr={6} display="block">
-    {label}
-  </Text>
-)
+import {
+  Box,
+  Heading,
+  Flex,
+  Text,
+  Button,
+  useDisclosure,
+  List,
+  ListItem,
+  IconButton,
+} from '@chakra-ui/core'
+import { IMenu } from 'gql/generated/schemas'
+import {
+  Drawer,
+  DrawerBody,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+} from '@chakra-ui/core'
 
 export interface INavbarItem {
   url?: string
@@ -14,58 +27,77 @@ export interface INavbarItem {
 }
 
 export interface ITopNavbarProps {
-  menuItems: INavbarItem[]
+  menu?: IMenu | null
 }
 
 export const TopNavbar: React.FC<ITopNavbarProps> = (props) => {
   const [show, setShow] = React.useState(false)
-  const handleToggle = () => setShow(!show)
-
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const btnRef = React.useRef()
   return (
-    <Flex
-      as="nav"
-      align="center"
-      justify="space-between"
-      wrap="wrap"
-      padding="1.5rem"
-      bg="green.600"
-      color="white"
-    >
-      <Flex align="center" mr={5}>
-        <Heading as="h1" size="lg" letterSpacing={'-.1rem'}>
-          🤙 Bug Free Rotary Phone
-        </Heading>
-      </Flex>
-
-      <Box display={{ base: 'block', md: 'none' }} onClick={handleToggle}>
-        <svg
-          fill="white"
-          width="12px"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
+    <>
+      <Flex
+        as="nav"
+        align="center"
+        justify="space-between"
+        wrap="wrap"
+        padding="1.5rem"
+        bg="black"
+        color="white"
+      >
+        <Box
+          display={{ sm: 'none', md: 'flex' }}
+          width={{ sm: 'full', md: 'auto' }}
+          alignItems="center"
+          flexGrow={1}
         >
-          <title>Menu</title>
-          <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
-        </svg>
-      </Box>
+          <Button ref={btnRef} bg="transparent" border="1px" onClick={onOpen}>
+            Menu
+          </Button>
+        </Box>
+        <Flex align="center" mr={5}>
+          <Heading as="h1" size="lg" letterSpacing={'-.1rem'}>
+            🤙 Bug Free Rotary Phone
+          </Heading>
+        </Flex>
 
-      <Box
-        display={{ sm: show ? 'block' : 'none', md: 'flex' }}
-        width={{ sm: 'full', md: 'auto' }}
-        alignItems="center"
-        flexGrow={1}
+        <Box
+          display={{ sm: show ? 'block' : 'none', md: 'block' }}
+          mt={{ base: 4, md: 0 }}
+        ></Box>
+      </Flex>
+      <Drawer
+        isOpen={isOpen}
+        placement="left"
+        onClose={onClose}
+        finalFocusRef={btnRef}
       >
-        {props.menuItems.map((item) => menuItem(item.label, item.url || '#'))}
-      </Box>
-
-      <Box
-        display={{ sm: show ? 'block' : 'none', md: 'block' }}
-        mt={{ base: 4, md: 0 }}
-      >
-        <Button bg="transparent" border="1px">
-          Login
-        </Button>
-      </Box>
-    </Flex>
+        <DrawerOverlay />
+        <DrawerContent>
+          <DrawerCloseButton />
+          <DrawerHeader>Menu</DrawerHeader>
+          <DrawerBody>
+            {!!props.menu?.items && (
+              <List spacing={3}>
+                {props.menu.items?.map((menuItem) => (
+                  <ListItem key={menuItem?.id}>
+                    <Text fontSize="3xl">{menuItem?.name}</Text>
+                    {!!menuItem?.children?.length && (
+                      <List spacing={1}>
+                        {menuItem?.children.map((childItem) => (
+                          <ListItem key={childItem?.id}>
+                            <Text fontSize="2xl">{childItem?.name}</Text>
+                          </ListItem>
+                        ))}
+                      </List>
+                    )}
+                  </ListItem>
+                ))}
+              </List>
+            )}
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
+    </>
   )
 }

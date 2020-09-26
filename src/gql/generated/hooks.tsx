@@ -106,7 +106,30 @@ export const MenuItemFragmentDoc = gql`
       name
       slug
     }
+    collection {
+      id
+      name
+      slug
+    }
+    page {
+      id
+      title
+      slug
+    }
   }
+`
+export const MenuFragmentDoc = gql`
+  fragment MenuFragment on Menu {
+    id
+    name
+    items {
+      ...MenuItemFragment
+      children {
+        ...MenuItemFragment
+      }
+    }
+  }
+  ${MenuItemFragmentDoc}
 `
 export const FirstProductsQueryDocument = gql`
   query FirstProductsQuery {
@@ -182,16 +205,13 @@ export const HomepageShopQueryDocument = gql`
       }
       navigation {
         main {
-          id
-          items {
-            ...MenuItemFragment
-          }
+          ...MenuFragment
         }
       }
     }
   }
   ${CollectionFragmentDoc}
-  ${MenuItemFragmentDoc}
+  ${MenuFragmentDoc}
 `
 
 /**

@@ -1,8 +1,6 @@
 import React from 'react'
 import { ICollectionFragment } from 'gql/generated/interfaces'
-import { ProductTile } from 'components/organisms'
-import { Grid } from '@chakra-ui/core'
-import { DefaultLayout } from '../DefaultLayout'
+import { ProductList } from 'components/organisms'
 
 export interface HomepageTemplateProps {
   homepageCollection?: ICollectionFragment | null
@@ -14,11 +12,16 @@ export const HomepageTemplate: React.FC<HomepageTemplateProps> = ({
   return (
     <>
       {!!homepageCollection && (
-        <Grid templateColumns="repeat(4, 1fr)" gap={6}>
-          {homepageCollection.products?.edges.map((productNode) => (
-            <ProductTile product={productNode.node} />
-          ))}
-        </Grid>
+        <ProductList
+          products={
+            [
+              ...(homepageCollection.products?.edges.map((edge) => edge.node) ||
+                []),
+              ...(homepageCollection.products?.edges.map((edge) => edge.node) ||
+                []),
+            ] || []
+          }
+        />
       )}
     </>
   )

@@ -32,7 +32,8 @@
           "uri",
           "gql",
           "undiscounted",
-          "chakra"
+          "chakra",
+          "semibold"
         ]
       }
     ]

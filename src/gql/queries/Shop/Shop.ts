@@ -10,6 +10,31 @@ export const MenuItemFragment = gql`
       name
       slug
     }
+    collection {
+      id
+      name
+      slug
+    }
+    page {
+      id
+      title
+      slug
+    }
+  }
+`
+
+export const MenuFragment = gql`
+  fragment MenuFragment on Menu {
+    id
+    name
+    items {
+      ...MenuItemFragment
+      children {
+        ...MenuItemFragment
+      }
+    }
+
+    ${MenuItemFragment}
   }
 `
 
@@ -22,14 +47,11 @@ export const HomepageShopQuery = gql`
     }
     navigation {
       main {
-        id 
-        items {
-          ...MenuItemFragment
-        }
+          ...MenuFragment
       }
     }
   }
   ${CollectionFragment}
-  ${MenuItemFragment}
+  ${MenuFragment}
 }
 `

@@ -94,6 +94,34 @@ export type IMenuItemFragment = { __typename?: 'MenuItem' } & Pick<
         'id' | 'name' | 'slug'
       >
     >
+    collection?: Types.Maybe<
+      { __typename?: 'Collection' } & Pick<
+        Types.ICollection,
+        'id' | 'name' | 'slug'
+      >
+    >
+    page?: Types.Maybe<
+      { __typename?: 'Page' } & Pick<Types.IPage, 'id' | 'title' | 'slug'>
+    >
+  }
+
+export type IMenuFragment = { __typename?: 'Menu' } & Pick<
+  Types.IMenu,
+  'id' | 'name'
+> & {
+    items?: Types.Maybe<
+      Array<
+        Types.Maybe<
+          { __typename?: 'MenuItem' } & {
+            children?: Types.Maybe<
+              Array<
+                Types.Maybe<{ __typename?: 'MenuItem' } & IMenuItemFragment>
+              >
+            >
+          } & IMenuItemFragment
+        >
+      >
+    >
   }
 
 export type IHomepageShopQueryVariables = Types.Exact<{ [key: string]: never }>
@@ -105,15 +133,7 @@ export type IHomepageShopQuery = { __typename?: 'Query' } & {
       >
       navigation?: Types.Maybe<
         { __typename?: 'Navigation' } & {
-          main?: Types.Maybe<
-            { __typename?: 'Menu' } & Pick<Types.IMenu, 'id'> & {
-                items?: Types.Maybe<
-                  Array<
-                    Types.Maybe<{ __typename?: 'MenuItem' } & IMenuItemFragment>
-                  >
-                >
-              }
-          >
+          main?: Types.Maybe<{ __typename?: 'Menu' } & IMenuFragment>
         }
       >
     }

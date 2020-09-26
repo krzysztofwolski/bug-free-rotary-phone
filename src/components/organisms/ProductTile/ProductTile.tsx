@@ -1,8 +1,7 @@
 import React from 'react'
 import { IProductDetailsFragment } from 'gql/generated/interfaces'
 import { ProductPricing } from 'components/molecules'
-import { Badge, Box, Icon, Image } from '@chakra-ui/core'
-import { Price } from 'components/atoms'
+import { Badge, Box, Image } from '@chakra-ui/core'
 
 export interface IProductTileProps {
   product?: IProductDetailsFragment
@@ -10,7 +9,13 @@ export interface IProductTileProps {
 
 export const ProductTile: React.FC<IProductTileProps> = ({ product }) => {
   return (
-    <Box maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden">
+    <Box
+      key={product?.id}
+      maxW="sm"
+      borderWidth="1px"
+      borderRadius="lg"
+      overflow="hidden"
+    >
       <Image
         src={product?.thumbnail?.url || ''}
         alt={product?.thumbnail?.alt || ''}
