@@ -81,6 +81,22 @@ export const ProductDetailsFragmentDoc = gql`
   ${ImageFragmentDoc}
   ${ProductPricingInfoFragmentDoc}
 `
+export const CategoryFragmentDoc = gql`
+  fragment CategoryFragment on Category {
+    id
+    slug
+    name
+    description
+    products(first: 10) {
+      edges {
+        node {
+          ...ProductDetailsFragment
+        }
+      }
+    }
+  }
+  ${ProductDetailsFragmentDoc}
+`
 export const CollectionFragmentDoc = gql`
   fragment CollectionFragment on Collection {
     id
@@ -131,6 +147,74 @@ export const MenuFragmentDoc = gql`
   }
   ${MenuItemFragmentDoc}
 `
+export const CategoryDetailsBySlugDocument = gql`
+  query CategoryDetailsBySlug($slug: String!) {
+    category(slug: $slug) {
+      products(first: 100) {
+        edges {
+          node {
+            ...ProductDetailsFragment
+          }
+        }
+      }
+    }
+  }
+  ${ProductDetailsFragmentDoc}
+`
+
+/**
+ * __useCategoryDetailsBySlugQuery__
+ *
+ * To run a query within a React component, call `useCategoryDetailsBySlugQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCategoryDetailsBySlugQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCategoryDetailsBySlugQuery({
+ *   variables: {
+ *      slug: // value for 'slug'
+ *   },
+ * });
+ */
+export function useCategoryDetailsBySlugQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    Types.ICategoryDetailsBySlugQuery,
+    Types.ICategoryDetailsBySlugQueryVariables
+  >
+) {
+  return Apollo.useQuery<
+    Types.ICategoryDetailsBySlugQuery,
+    Types.ICategoryDetailsBySlugQueryVariables
+  >(CategoryDetailsBySlugDocument, baseOptions)
+}
+export function useCategoryDetailsBySlugLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    Types.ICategoryDetailsBySlugQuery,
+    Types.ICategoryDetailsBySlugQueryVariables
+  >
+) {
+  return Apollo.useLazyQuery<
+    Types.ICategoryDetailsBySlugQuery,
+    Types.ICategoryDetailsBySlugQueryVariables
+  >(CategoryDetailsBySlugDocument, baseOptions)
+}
+export type CategoryDetailsBySlugQueryHookResult = ReturnType<
+  typeof useCategoryDetailsBySlugQuery
+>
+export type CategoryDetailsBySlugLazyQueryHookResult = ReturnType<
+  typeof useCategoryDetailsBySlugLazyQuery
+>
+export type CategoryDetailsBySlugQueryResult = Apollo.QueryResult<
+  Types.ICategoryDetailsBySlugQuery,
+  Types.ICategoryDetailsBySlugQueryVariables
+>
+export function refetchCategoryDetailsBySlugQuery(
+  variables?: Types.ICategoryDetailsBySlugQueryVariables
+) {
+  return { query: CategoryDetailsBySlugDocument, variables: variables }
+}
 export const FirstProductsQueryDocument = gql`
   query FirstProductsQuery {
     products(first: 5) {

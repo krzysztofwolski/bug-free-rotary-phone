@@ -14,12 +14,7 @@ export const HomepageTemplate: React.FC<HomepageTemplateProps> = ({
       {!!homepageCollection && (
         <ProductList
           products={
-            [
-              ...(homepageCollection.products?.edges.map((edge) => edge.node) ||
-                []),
-              ...(homepageCollection.products?.edges.map((edge) => edge.node) ||
-                []),
-            ] || []
+            homepageCollection.products?.edges.map((edge) => edge.node) || []
           }
         />
       )}

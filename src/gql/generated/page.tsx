@@ -8,6 +8,75 @@ import { QueryHookOptions, useQuery } from '@apollo/client'
 import * as Apollo from '@apollo/client'
 import React from 'react'
 import { getApolloClient } from '../withApollo'
+export async function getServerPageCategoryDetailsBySlug<
+  T extends true | false
+>(
+  options: Omit<
+    Apollo.QueryOptions<Types.ICategoryDetailsBySlugQueryVariables>,
+    'query'
+  >,
+  ctx?: any,
+  rawQueryResult?: T
+): Promise<{
+  props: T extends true
+    ? Apollo.ApolloQueryResult<Types.ICategoryDetailsBySlugQuery>
+    : { apolloState: NormalizedCacheObject }
+}> {
+  const apolloClient = getApolloClient(ctx)
+
+  const data = await apolloClient.query<Types.ICategoryDetailsBySlugQuery>({
+    ...options,
+    query: Operations.CategoryDetailsBySlugDocument,
+  })
+  if (rawQueryResult) {
+    return {
+      props: data,
+    } as any
+  }
+  const apolloState = apolloClient.cache.extract()
+  return {
+    props: {
+      apolloState,
+    },
+  } as any
+}
+export const useCategoryDetailsBySlug = (
+  optionsFunc?: (
+    router: NextRouter
+  ) => QueryHookOptions<
+    Types.ICategoryDetailsBySlugQuery,
+    Types.ICategoryDetailsBySlugQueryVariables
+  >
+) => {
+  const router = useRouter()
+  const options = optionsFunc ? optionsFunc(router) : {}
+  return useQuery(Operations.CategoryDetailsBySlugDocument, options)
+}
+export type PageCategoryDetailsBySlugComp = React.FC<{
+  data?: Types.ICategoryDetailsBySlugQuery
+  error?: Apollo.ApolloError
+}>
+export const withPageCategoryDetailsBySlug = (
+  optionsFunc?: (
+    router: NextRouter
+  ) => QueryHookOptions<
+    Types.ICategoryDetailsBySlugQuery,
+    Types.ICategoryDetailsBySlugQueryVariables
+  >
+) => (WrappedComponent: PageCategoryDetailsBySlugComp): NextPage => (props) => {
+  const router = useRouter()
+  const options = optionsFunc ? optionsFunc(router) : {}
+  const { data, error } = useQuery(
+    Operations.CategoryDetailsBySlugDocument,
+    options
+  )
+  return <WrappedComponent {...props} data={data} error={error} />
+}
+export const ssrCategoryDetailsBySlug = {
+  getServerPage: getServerPageCategoryDetailsBySlug,
+  withPage: withPageCategoryDetailsBySlug,
+  usePage: useCategoryDetailsBySlug,
+}
 export async function getServerPageFirstProducts<T extends true | false>(
   options: Omit<
     Apollo.QueryOptions<Types.IFirstProductsQueryVariables>,

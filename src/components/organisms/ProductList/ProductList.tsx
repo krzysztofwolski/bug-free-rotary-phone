@@ -12,7 +12,7 @@ export const ProductList: React.FC<IProductListProps> = ({ products }) => {
     <Box alignContent="center" padding="20px">
       <SimpleGrid minChildWidth="340px" spacing="40px">
         {products.map((product) => (
-          <ProductTile product={product} />
+          <ProductTile key={product.id} product={product} />
         ))}
       </SimpleGrid>
     </Box>

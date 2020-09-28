@@ -1,4 +1,4 @@
-import { CollectionFragment } from 'gql/queries/Products/Collection'
+import { CollectionFragment } from 'gql/queries/Collection'
 import { gql } from '@apollo/client'
 
 export const MenuItemFragment = gql`

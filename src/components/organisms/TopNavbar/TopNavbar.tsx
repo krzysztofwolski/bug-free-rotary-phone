@@ -8,9 +8,7 @@ import {
   useDisclosure,
   List,
   ListItem,
-  IconButton,
 } from '@chakra-ui/core'
-import { IMenu } from 'gql/generated/schemas'
 import {
   Drawer,
   DrawerBody,
@@ -19,7 +17,8 @@ import {
   DrawerContent,
   DrawerCloseButton,
 } from '@chakra-ui/core'
-
+import { IMenuFragment } from 'gql/generated/interfaces'
+import Link from 'next/link'
 export interface INavbarItem {
   url?: string
   subItems: INavbarItem[]
@@ -27,7 +26,7 @@ export interface INavbarItem {
 }
 
 export interface ITopNavbarProps {
-  menu?: IMenu | null
+  menu?: IMenuFragment | null
 }
 
 export const TopNavbar: React.FC<ITopNavbarProps> = (props) => {
@@ -57,7 +56,7 @@ export const TopNavbar: React.FC<ITopNavbarProps> = (props) => {
         </Box>
         <Flex align="center" mr={5}>
           <Heading as="h1" size="lg" letterSpacing={'-.1rem'}>
-            🤙 Bug Free Rotary Phone
+            <Link href={`/`}>🤙 Bug Free Rotary Phone</Link>
           </Heading>
         </Flex>
 
@@ -81,12 +80,22 @@ export const TopNavbar: React.FC<ITopNavbarProps> = (props) => {
               <List spacing={3}>
                 {props.menu.items?.map((menuItem) => (
                   <ListItem key={menuItem?.id}>
-                    <Text fontSize="3xl">{menuItem?.name}</Text>
+                    <Link href={`/category/${menuItem?.category?.slug}`}>
+                      <Text fontSize="3xl" onClick={onClose}>
+                        {menuItem?.name}
+                      </Text>
+                    </Link>
                     {!!menuItem?.children?.length && (
                       <List spacing={1}>
                         {menuItem?.children.map((childItem) => (
                           <ListItem key={childItem?.id}>
-                            <Text fontSize="2xl">{childItem?.name}</Text>
+                            <Link
+                              href={`/category/${childItem?.category?.slug}`}
+                            >
+                              <Text fontSize="2xl" onClick={onClose}>
+                                - {childItem?.name}
+                              </Text>
+                            </Link>
                           </ListItem>
                         ))}
                       </List>

@@ -1,5 +1,40 @@
 import * as Types from './schemas'
 
+export type ICategoryFragment = { __typename?: 'Category' } & Pick<
+  Types.ICategory,
+  'id' | 'slug' | 'name' | 'description'
+> & {
+    products?: Types.Maybe<
+      { __typename?: 'ProductCountableConnection' } & {
+        edges: Array<
+          { __typename?: 'ProductCountableEdge' } & {
+            node: { __typename?: 'Product' } & IProductDetailsFragment
+          }
+        >
+      }
+    >
+  }
+
+export type ICategoryDetailsBySlugVariables = Types.Exact<{
+  slug: Types.Scalars['String']
+}>
+
+export type ICategoryDetailsBySlug = { __typename?: 'Query' } & {
+  category?: Types.Maybe<
+    { __typename?: 'Category' } & {
+      products?: Types.Maybe<
+        { __typename?: 'ProductCountableConnection' } & {
+          edges: Array<
+            { __typename?: 'ProductCountableEdge' } & {
+              node: { __typename?: 'Product' } & IProductDetailsFragment
+            }
+          >
+        }
+      >
+    }
+  >
+}
+
 export type ICollectionFragment = { __typename?: 'Collection' } & Pick<
   Types.ICollection,
   'id' | 'slug' | 'name' | 'description'
