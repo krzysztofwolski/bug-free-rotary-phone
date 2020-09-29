@@ -17,8 +17,8 @@ import {
   DrawerContent,
   DrawerCloseButton,
 } from '@chakra-ui/core'
-import { IMenuFragment } from 'gql/generated/interfaces'
 import Link from 'next/link'
+import { IMenuFragment } from '../../../gql/generated/interfaces'
 export interface INavbarItem {
   url?: string
   subItems: INavbarItem[]
@@ -80,22 +80,22 @@ export const TopNavbar: React.FC<ITopNavbarProps> = (props) => {
               <List spacing={3}>
                 {props.menu.items?.map((menuItem) => (
                   <ListItem key={menuItem?.id}>
-                    <Link href={`/category/${menuItem?.category?.slug}`}>
-                      <Text fontSize="3xl" onClick={onClose}>
+                    <Text fontSize="3xl" onClick={onClose}>
+                      <Link href={`/category/${menuItem?.category?.slug}`}>
                         {menuItem?.name}
-                      </Text>
-                    </Link>
+                      </Link>
+                    </Text>
                     {!!menuItem?.children?.length && (
                       <List spacing={1}>
                         {menuItem?.children.map((childItem) => (
                           <ListItem key={childItem?.id}>
-                            <Link
-                              href={`/category/${childItem?.category?.slug}`}
-                            >
-                              <Text fontSize="2xl" onClick={onClose}>
-                                - {childItem?.name}
-                              </Text>
-                            </Link>
+                            <Text fontSize="2xl" onClick={onClose}>
+                              <Link
+                                href={`/category/${childItem?.category?.slug}`}
+                              >
+                                {`- ${childItem?.name}`}
+                              </Link>
+                            </Text>
                           </ListItem>
                         ))}
                       </List>

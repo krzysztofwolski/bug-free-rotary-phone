@@ -1,5 +1,5 @@
-import { CollectionFragment } from 'gql/queries/Collection'
 import { gql } from '@apollo/client'
+import { CollectionFragment } from './Collection'
 
 export const MenuItemFragment = gql`
   fragment MenuItemFragment on MenuItem {
@@ -41,6 +41,7 @@ export const MenuFragment = gql`
 export const HomepageShopQuery = gql` 
   query HomepageShopQuery {
 	shop {
+    name
     defaultCurrency
     homepageCollection {
       ...CollectionFragment

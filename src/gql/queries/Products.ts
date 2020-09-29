@@ -75,6 +75,14 @@ export const ProductDetailsFragment = gql`
     category {
       id
       name
+      parent {
+        id
+        name
+        parent {
+          id
+          name
+        }
+      }
     }
     thumbnail(size: 500) {
       ...ImageFragment
@@ -95,6 +103,15 @@ export const FirstProductsQuery = gql`
           ...ProductDetailsFragment
         }
       }
+    }
+    ${ProductDetailsFragment}
+  }
+`
+
+export const ProductDetailsBySlugQuery = gql`
+  query ProductDetailsBySlug($slug: String!) {
+    product(slug: $slug) {
+      ...ProductDetailsFragment
     }
     ${ProductDetailsFragment}
   }

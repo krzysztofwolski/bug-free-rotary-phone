@@ -1,6 +1,6 @@
 import { Box, SimpleGrid } from '@chakra-ui/core'
-import { IProductDetailsFragment } from 'gql/generated/interfaces'
 import React from 'react'
+import { IProductDetailsFragment } from '../../../gql/generated/interfaces'
 import { ProductTile } from '../ProductTile'
 
 export interface IProductListProps {

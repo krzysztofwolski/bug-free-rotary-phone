@@ -1,10 +1,8 @@
 import React from 'react'
-import { PageHomeShopComp, ssrHomeShop } from 'gql/generated/page'
-
-import { withApollo } from 'gql/withApollo'
 import { GetServerSideProps } from 'next'
-import { HomepageTemplate } from 'components/templates'
-import { DefaultLayout } from 'components/templates/DefaultLayout'
+import { PageHomeShopComp, ssrHomeShop } from '../gql/generated/page'
+import { DefaultLayout, HomepageTemplate } from '../components/templates'
+import { withApollo } from '../gql/withApollo'
 
 const HomePage: PageHomeShopComp = (props) => (
   <DefaultLayout menu={props.data?.shop.navigation?.main}>

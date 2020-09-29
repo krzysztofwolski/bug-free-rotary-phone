@@ -1,17 +1,17 @@
-import { DefaultLayout } from 'components/templates'
-import { CategoryTemplate } from 'components/templates/CategoryTemplate'
+import { withRouter } from 'next/router'
+import { DefaultLayout } from '../../components/templates'
+import { CategoryTemplate } from '../../components/templates/CategoryTemplate'
 import {
   useCategoryDetailsBySlugQuery,
   useHomepageShopQuery,
-} from 'gql/generated/hooks'
-import { withApollo } from 'gql/withApollo'
-import { withRouter } from 'next/router'
+} from '../../gql/generated/hooks'
+import { withApollo } from '../../gql/withApollo'
 
-interface ICategoryProps {
+interface ICategoryPageProps {
   router?: any
 }
 
-const CategoryPage: React.FC<ICategoryProps> = (props) => {
+const CategoryPage: React.FC<ICategoryPageProps> = (props) => {
   if (!props.router?.query.slug) {
     // TODO: 404
     return <></>
@@ -19,26 +19,20 @@ const CategoryPage: React.FC<ICategoryProps> = (props) => {
   const {
     data: categoryData,
     loading: categoryLoading,
-    error: categoryError,
   } = useCategoryDetailsBySlugQuery({
     variables: {
       slug: props.router?.query.slug,
     },
   })
-  const {
-    data: shopData,
-    loading: shopLoading,
-    error: shopError,
-  } = useHomepageShopQuery({
+  const { data: shopData } = useHomepageShopQuery({
     variables: {},
   })
-  const loading = categoryLoading || shopLoading
-  const error = categoryError || shopError
   return (
     <DefaultLayout menu={shopData?.shop.navigation?.main}>
-      {!loading && !error && (
-        <CategoryTemplate category={categoryData?.category} />
-      )}
+      <CategoryTemplate
+        category={categoryData?.category}
+        isLoading={categoryLoading}
+      />
     </DefaultLayout>
   )
 }

@@ -1,5 +1,5 @@
-import { ITopNavbarProps, TopNavbar } from 'components/organisms/TopNavbar'
 import React from 'react'
+import { ITopNavbarProps, TopNavbar } from '../../organisms'
 
 export type IDefaultLayout = ITopNavbarProps
 

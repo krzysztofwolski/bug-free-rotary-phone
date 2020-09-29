@@ -97,7 +97,21 @@ export type IProductDetailsFragment = { __typename?: 'Product' } & Pick<
   'id' | 'name' | 'description'
 > & {
     category?: Types.Maybe<
-      { __typename?: 'Category' } & Pick<Types.ICategory, 'id' | 'name'>
+      { __typename?: 'Category' } & Pick<Types.ICategory, 'id' | 'name'> & {
+          parent?: Types.Maybe<
+            { __typename?: 'Category' } & Pick<
+              Types.ICategory,
+              'id' | 'name'
+            > & {
+                parent?: Types.Maybe<
+                  { __typename?: 'Category' } & Pick<
+                    Types.ICategory,
+                    'id' | 'name'
+                  >
+                >
+              }
+          >
+        }
     >
     thumbnail?: Types.Maybe<{ __typename?: 'Image' } & IImageFragment>
     pricing?: Types.Maybe<
@@ -117,6 +131,14 @@ export type IFirstProductsQuery = { __typename?: 'Query' } & {
       >
     }
   >
+}
+
+export type IProductDetailsBySlugVariables = Types.Exact<{
+  slug: Types.Scalars['String']
+}>
+
+export type IProductDetailsBySlug = { __typename?: 'Query' } & {
+  product?: Types.Maybe<{ __typename?: 'Product' } & IProductDetailsFragment>
 }
 
 export type IMenuItemFragment = { __typename?: 'MenuItem' } & Pick<
@@ -162,7 +184,10 @@ export type IMenuFragment = { __typename?: 'Menu' } & Pick<
 export type IHomepageShopQueryVariables = Types.Exact<{ [key: string]: never }>
 
 export type IHomepageShopQuery = { __typename?: 'Query' } & {
-  shop: { __typename?: 'Shop' } & Pick<Types.IShop, 'defaultCurrency'> & {
+  shop: { __typename?: 'Shop' } & Pick<
+    Types.IShop,
+    'name' | 'defaultCurrency'
+  > & {
       homepageCollection?: Types.Maybe<
         { __typename?: 'Collection' } & ICollectionFragment
       >

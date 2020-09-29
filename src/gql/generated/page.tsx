@@ -144,6 +144,73 @@ export const ssrFirstProducts = {
   withPage: withPageFirstProducts,
   usePage: useFirstProducts,
 }
+export async function getServerPageProductDetailsBySlug<T extends true | false>(
+  options: Omit<
+    Apollo.QueryOptions<Types.IProductDetailsBySlugQueryVariables>,
+    'query'
+  >,
+  ctx?: any,
+  rawQueryResult?: T
+): Promise<{
+  props: T extends true
+    ? Apollo.ApolloQueryResult<Types.IProductDetailsBySlugQuery>
+    : { apolloState: NormalizedCacheObject }
+}> {
+  const apolloClient = getApolloClient(ctx)
+
+  const data = await apolloClient.query<Types.IProductDetailsBySlugQuery>({
+    ...options,
+    query: Operations.ProductDetailsBySlugDocument,
+  })
+  if (rawQueryResult) {
+    return {
+      props: data,
+    } as any
+  }
+  const apolloState = apolloClient.cache.extract()
+  return {
+    props: {
+      apolloState,
+    },
+  } as any
+}
+export const useProductDetailsBySlug = (
+  optionsFunc?: (
+    router: NextRouter
+  ) => QueryHookOptions<
+    Types.IProductDetailsBySlugQuery,
+    Types.IProductDetailsBySlugQueryVariables
+  >
+) => {
+  const router = useRouter()
+  const options = optionsFunc ? optionsFunc(router) : {}
+  return useQuery(Operations.ProductDetailsBySlugDocument, options)
+}
+export type PageProductDetailsBySlugComp = React.FC<{
+  data?: Types.IProductDetailsBySlugQuery
+  error?: Apollo.ApolloError
+}>
+export const withPageProductDetailsBySlug = (
+  optionsFunc?: (
+    router: NextRouter
+  ) => QueryHookOptions<
+    Types.IProductDetailsBySlugQuery,
+    Types.IProductDetailsBySlugQueryVariables
+  >
+) => (WrappedComponent: PageProductDetailsBySlugComp): NextPage => (props) => {
+  const router = useRouter()
+  const options = optionsFunc ? optionsFunc(router) : {}
+  const { data, error } = useQuery(
+    Operations.ProductDetailsBySlugDocument,
+    options
+  )
+  return <WrappedComponent {...props} data={data} error={error} />
+}
+export const ssrProductDetailsBySlug = {
+  getServerPage: getServerPageProductDetailsBySlug,
+  withPage: withPageProductDetailsBySlug,
+  usePage: useProductDetailsBySlug,
+}
 export async function getServerPageHomeShop<T extends true | false>(
   options: Omit<
     Apollo.QueryOptions<Types.IHomepageShopQueryVariables>,

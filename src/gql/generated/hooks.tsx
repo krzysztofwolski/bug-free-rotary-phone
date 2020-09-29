@@ -70,6 +70,14 @@ export const ProductDetailsFragmentDoc = gql`
     category {
       id
       name
+      parent {
+        id
+        name
+        parent {
+          id
+          name
+        }
+      }
     }
     thumbnail(size: 500) {
       ...ImageFragment
@@ -280,9 +288,72 @@ export function refetchFirstProductsQuery(
 ) {
   return { query: FirstProductsQueryDocument, variables: variables }
 }
+export const ProductDetailsBySlugDocument = gql`
+  query ProductDetailsBySlug($slug: String!) {
+    product(slug: $slug) {
+      ...ProductDetailsFragment
+    }
+  }
+  ${ProductDetailsFragmentDoc}
+`
+
+/**
+ * __useProductDetailsBySlugQuery__
+ *
+ * To run a query within a React component, call `useProductDetailsBySlugQuery` and pass it any options that fit your needs.
+ * When your component renders, `useProductDetailsBySlugQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useProductDetailsBySlugQuery({
+ *   variables: {
+ *      slug: // value for 'slug'
+ *   },
+ * });
+ */
+export function useProductDetailsBySlugQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    Types.IProductDetailsBySlugQuery,
+    Types.IProductDetailsBySlugQueryVariables
+  >
+) {
+  return Apollo.useQuery<
+    Types.IProductDetailsBySlugQuery,
+    Types.IProductDetailsBySlugQueryVariables
+  >(ProductDetailsBySlugDocument, baseOptions)
+}
+export function useProductDetailsBySlugLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    Types.IProductDetailsBySlugQuery,
+    Types.IProductDetailsBySlugQueryVariables
+  >
+) {
+  return Apollo.useLazyQuery<
+    Types.IProductDetailsBySlugQuery,
+    Types.IProductDetailsBySlugQueryVariables
+  >(ProductDetailsBySlugDocument, baseOptions)
+}
+export type ProductDetailsBySlugQueryHookResult = ReturnType<
+  typeof useProductDetailsBySlugQuery
+>
+export type ProductDetailsBySlugLazyQueryHookResult = ReturnType<
+  typeof useProductDetailsBySlugLazyQuery
+>
+export type ProductDetailsBySlugQueryResult = Apollo.QueryResult<
+  Types.IProductDetailsBySlugQuery,
+  Types.IProductDetailsBySlugQueryVariables
+>
+export function refetchProductDetailsBySlugQuery(
+  variables?: Types.IProductDetailsBySlugQueryVariables
+) {
+  return { query: ProductDetailsBySlugDocument, variables: variables }
+}
 export const HomepageShopQueryDocument = gql`
   query HomepageShopQuery {
     shop {
+      name
       defaultCurrency
       homepageCollection {
         ...CollectionFragment

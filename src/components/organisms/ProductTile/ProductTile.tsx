@@ -1,7 +1,7 @@
 import React from 'react'
-import { IProductDetailsFragment } from 'gql/generated/interfaces'
-import { ProductPricing } from 'components/molecules'
 import { Badge, Box, Image } from '@chakra-ui/core'
+import { ProductPricing } from '../../molecules'
+import { IProductDetailsFragment } from '../../../gql/generated/interfaces'
 
 export interface IProductTileProps {
   product?: IProductDetailsFragment

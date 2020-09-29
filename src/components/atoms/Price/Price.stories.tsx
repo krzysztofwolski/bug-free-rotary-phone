@@ -7,9 +7,6 @@ import { Price, IPriceProps } from './Price'
 export default {
   title: 'Atoms/Price',
   component: Price,
-  //   argTypes: {
-  //     backgroundColor: { control: 'color' },
-  //   },
 } as Meta
 
 const Template: Story<IPriceProps> = (args) => <Price {...args} />
