@@ -94,7 +94,7 @@ export type IImageFragment = { __typename?: 'Image' } & Pick<
 
 export type IProductDetailsFragment = { __typename?: 'Product' } & Pick<
   Types.IProduct,
-  'id' | 'name' | 'description'
+  'id' | 'name' | 'slug' | 'description'
 > & {
     category?: Types.Maybe<
       { __typename?: 'Category' } & Pick<Types.ICategory, 'id' | 'name'> & {

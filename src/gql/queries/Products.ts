@@ -71,6 +71,7 @@ export const ProductDetailsFragment = gql`
   fragment ProductDetailsFragment on Product {
     id
     name
+    slug
     description
     category {
       id

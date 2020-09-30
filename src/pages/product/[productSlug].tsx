@@ -1,4 +1,4 @@
-import { withRouter } from 'next/router'
+import { useRouter, withRouter } from 'next/router'
 import { DefaultLayout } from '../../components/templates'
 import { ProductDetailsTemplate } from '../../components/templates/ProductDetailsTemplate'
 import {
@@ -7,12 +7,8 @@ import {
 } from '../../gql/generated/hooks'
 import { withApollo } from '../../gql/withApollo'
 
-interface IProductDetailsPageProps {
-  router?: any
-}
-
-const ProductDetailsPage: React.FC<IProductDetailsPageProps> = (props) => {
-  const slug = props.router?.query.productSlug
+const ProductDetailsPage: React.FC = () => {
+  const slug = useRouter().query.productSlug
   if (!slug) {
     // TODO: 404
     return <>404</>

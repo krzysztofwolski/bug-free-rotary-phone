@@ -1,4 +1,4 @@
-import { withRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import { DefaultLayout } from '../../components/templates'
 import { CategoryTemplate } from '../../components/templates/CategoryTemplate'
 import {
@@ -7,12 +7,10 @@ import {
 } from '../../gql/generated/hooks'
 import { withApollo } from '../../gql/withApollo'
 
-interface ICategoryPageProps {
-  router?: any
-}
+const CategoryPage: React.FC = () => {
+  const router = useRouter()
 
-const CategoryPage: React.FC<ICategoryPageProps> = (props) => {
-  if (!props.router?.query.slug) {
+  if (!router?.query.slug) {
     // TODO: 404
     return <></>
   }
@@ -21,7 +19,7 @@ const CategoryPage: React.FC<ICategoryPageProps> = (props) => {
     loading: categoryLoading,
   } = useCategoryDetailsBySlugQuery({
     variables: {
-      slug: props.router?.query.slug,
+      slug: router?.query.slug,
     },
   })
   const { data: shopData } = useHomepageShopQuery({
@@ -37,4 +35,4 @@ const CategoryPage: React.FC<ICategoryPageProps> = (props) => {
   )
 }
 
-export default withApollo(withRouter(CategoryPage))
+export default withApollo(CategoryPage)
