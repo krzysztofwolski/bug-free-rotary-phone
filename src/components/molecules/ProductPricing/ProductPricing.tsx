@@ -1,8 +1,7 @@
-import { Price } from 'components/atoms'
-import { IProductPricingInfoFragment } from 'gql/generated/interfaces'
-import { IMoney } from 'gql/generated/schemas'
 import React from 'react'
-import { isGrossPriceEqual } from 'utils'
+import { IProductPricingInfoFragment } from '../../../gql/generated/interfaces'
+import { isGrossPriceEqual } from '../../../utils'
+import { Price } from '../../atoms'
 
 export interface ProductPricingProps {
   pricing: IProductPricingInfoFragment
@@ -13,12 +12,12 @@ export const ProductPricing: React.FC<ProductPricingProps> = ({ pricing }) => {
   const priceRangeStop = pricing.priceRange?.stop
   if (priceRangeStart && priceRangeStop) {
     if (isGrossPriceEqual(priceRangeStart, priceRangeStop)) {
-      return <Price money={priceRangeStart.gross as IMoney} />
+      return <Price money={priceRangeStart.gross} />
     } else {
       return (
         <p>
-          <Price money={priceRangeStart.gross as IMoney} /> -{' '}
-          <Price money={priceRangeStop.gross as IMoney} />
+          <Price money={priceRangeStart.gross} /> -{' '}
+          <Price money={priceRangeStop.gross} />
         </p>
       )
     }

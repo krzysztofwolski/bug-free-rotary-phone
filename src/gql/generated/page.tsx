@@ -7,7 +7,76 @@ import { NormalizedCacheObject } from '@apollo/client'
 import { QueryHookOptions, useQuery } from '@apollo/client'
 import * as Apollo from '@apollo/client'
 import React from 'react'
-import { getApolloClient } from 'gql/withApollo'
+import { getApolloClient } from '../withApollo'
+export async function getServerPageCategoryDetailsBySlug<
+  T extends true | false
+>(
+  options: Omit<
+    Apollo.QueryOptions<Types.ICategoryDetailsBySlugQueryVariables>,
+    'query'
+  >,
+  ctx?: any,
+  rawQueryResult?: T
+): Promise<{
+  props: T extends true
+    ? Apollo.ApolloQueryResult<Types.ICategoryDetailsBySlugQuery>
+    : { apolloState: NormalizedCacheObject }
+}> {
+  const apolloClient = getApolloClient(ctx)
+
+  const data = await apolloClient.query<Types.ICategoryDetailsBySlugQuery>({
+    ...options,
+    query: Operations.CategoryDetailsBySlugQueryDocument,
+  })
+  if (rawQueryResult) {
+    return {
+      props: data,
+    } as any
+  }
+  const apolloState = apolloClient.cache.extract()
+  return {
+    props: {
+      apolloState,
+    },
+  } as any
+}
+export const useCategoryDetailsBySlug = (
+  optionsFunc?: (
+    router: NextRouter
+  ) => QueryHookOptions<
+    Types.ICategoryDetailsBySlugQuery,
+    Types.ICategoryDetailsBySlugQueryVariables
+  >
+) => {
+  const router = useRouter()
+  const options = optionsFunc ? optionsFunc(router) : {}
+  return useQuery(Operations.CategoryDetailsBySlugQueryDocument, options)
+}
+export type PageCategoryDetailsBySlugComp = React.FC<{
+  data?: Types.ICategoryDetailsBySlugQuery
+  error?: Apollo.ApolloError
+}>
+export const withPageCategoryDetailsBySlug = (
+  optionsFunc?: (
+    router: NextRouter
+  ) => QueryHookOptions<
+    Types.ICategoryDetailsBySlugQuery,
+    Types.ICategoryDetailsBySlugQueryVariables
+  >
+) => (WrappedComponent: PageCategoryDetailsBySlugComp): NextPage => (props) => {
+  const router = useRouter()
+  const options = optionsFunc ? optionsFunc(router) : {}
+  const { data, error } = useQuery(
+    Operations.CategoryDetailsBySlugQueryDocument,
+    options
+  )
+  return <WrappedComponent {...props} data={data} error={error} />
+}
+export const ssrCategoryDetailsBySlug = {
+  getServerPage: getServerPageCategoryDetailsBySlug,
+  withPage: withPageCategoryDetailsBySlug,
+  usePage: useCategoryDetailsBySlug,
+}
 export async function getServerPageFirstProducts<T extends true | false>(
   options: Omit<
     Apollo.QueryOptions<Types.IFirstProductsQueryVariables>,
@@ -17,8 +86,8 @@ export async function getServerPageFirstProducts<T extends true | false>(
   rawQueryResult?: T
 ): Promise<{
   props: T extends true
-  ? Apollo.ApolloQueryResult<Types.IFirstProductsQuery>
-  : { apolloState: NormalizedCacheObject }
+    ? Apollo.ApolloQueryResult<Types.IFirstProductsQuery>
+    : { apolloState: NormalizedCacheObject }
 }> {
   const apolloClient = getApolloClient(ctx)
 
@@ -75,6 +144,73 @@ export const ssrFirstProducts = {
   withPage: withPageFirstProducts,
   usePage: useFirstProducts,
 }
+export async function getServerPageProductDetailsBySlug<T extends true | false>(
+  options: Omit<
+    Apollo.QueryOptions<Types.IProductDetailsBySlugQueryVariables>,
+    'query'
+  >,
+  ctx?: any,
+  rawQueryResult?: T
+): Promise<{
+  props: T extends true
+    ? Apollo.ApolloQueryResult<Types.IProductDetailsBySlugQuery>
+    : { apolloState: NormalizedCacheObject }
+}> {
+  const apolloClient = getApolloClient(ctx)
+
+  const data = await apolloClient.query<Types.IProductDetailsBySlugQuery>({
+    ...options,
+    query: Operations.ProductDetailsBySlugQueryDocument,
+  })
+  if (rawQueryResult) {
+    return {
+      props: data,
+    } as any
+  }
+  const apolloState = apolloClient.cache.extract()
+  return {
+    props: {
+      apolloState,
+    },
+  } as any
+}
+export const useProductDetailsBySlug = (
+  optionsFunc?: (
+    router: NextRouter
+  ) => QueryHookOptions<
+    Types.IProductDetailsBySlugQuery,
+    Types.IProductDetailsBySlugQueryVariables
+  >
+) => {
+  const router = useRouter()
+  const options = optionsFunc ? optionsFunc(router) : {}
+  return useQuery(Operations.ProductDetailsBySlugQueryDocument, options)
+}
+export type PageProductDetailsBySlugComp = React.FC<{
+  data?: Types.IProductDetailsBySlugQuery
+  error?: Apollo.ApolloError
+}>
+export const withPageProductDetailsBySlug = (
+  optionsFunc?: (
+    router: NextRouter
+  ) => QueryHookOptions<
+    Types.IProductDetailsBySlugQuery,
+    Types.IProductDetailsBySlugQueryVariables
+  >
+) => (WrappedComponent: PageProductDetailsBySlugComp): NextPage => (props) => {
+  const router = useRouter()
+  const options = optionsFunc ? optionsFunc(router) : {}
+  const { data, error } = useQuery(
+    Operations.ProductDetailsBySlugQueryDocument,
+    options
+  )
+  return <WrappedComponent {...props} data={data} error={error} />
+}
+export const ssrProductDetailsBySlug = {
+  getServerPage: getServerPageProductDetailsBySlug,
+  withPage: withPageProductDetailsBySlug,
+  usePage: useProductDetailsBySlug,
+}
 export async function getServerPageHomeShop<T extends true | false>(
   options: Omit<
     Apollo.QueryOptions<Types.IHomepageShopQueryVariables>,
@@ -84,8 +220,8 @@ export async function getServerPageHomeShop<T extends true | false>(
   rawQueryResult?: T
 ): Promise<{
   props: T extends true
-  ? Apollo.ApolloQueryResult<Types.IHomepageShopQuery>
-  : { apolloState: NormalizedCacheObject }
+    ? Apollo.ApolloQueryResult<Types.IHomepageShopQuery>
+    : { apolloState: NormalizedCacheObject }
 }> {
   const apolloClient = getApolloClient(ctx)
 

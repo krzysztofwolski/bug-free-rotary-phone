@@ -1,14 +1,15 @@
-import { PageHomeShopComp, ssrHomeShop } from 'gql/generated/page'
-
-import { withApollo } from 'gql/withApollo'
+import React from 'react'
 import { GetServerSideProps } from 'next'
-import { HomepageTemplate } from 'components/templates'
+import { PageHomeShopComp, ssrHomeShop } from '../gql/generated/page'
+import { DefaultLayout, HomepageTemplate } from '../components/templates'
+import { withApollo } from '../gql/withApollo'
 
 const HomePage: PageHomeShopComp = (props) => (
-  <HomepageTemplate
-    defaultCurrency={props.data?.shop.defaultCurrency}
-    homepageCollection={props.data?.shop.homepageCollection}
-  />
+  <DefaultLayout menu={props.data?.shop.navigation?.main}>
+    <HomepageTemplate
+      homepageCollection={props.data?.shop.homepageCollection}
+    />
+  </DefaultLayout>
 )
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {

@@ -1,8 +1,8 @@
-import { IMoney } from 'gql/generated/schemas'
 import React from 'react'
+import { IMoneyFragment } from '../../../gql/generated/interfaces'
 
 export interface IPriceProps {
-  money?: IMoney
+  money?: IMoneyFragment
 }
 
 export const Price: React.FC<IPriceProps> = ({ money }) => {

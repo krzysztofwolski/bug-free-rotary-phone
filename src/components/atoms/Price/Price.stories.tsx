@@ -7,9 +7,6 @@ import { Price, IPriceProps } from './Price'
 export default {
   title: 'Atoms/Price',
   component: Price,
-  //   argTypes: {
-  //     backgroundColor: { control: 'color' },
-  //   },
 } as Meta
 
 const Template: Story<IPriceProps> = (args) => <Price {...args} />
@@ -19,7 +16,6 @@ USD.args = {
   money: {
     amount: 540000.2,
     currency: 'USD',
-    localized: '',
   },
 }
 
@@ -28,7 +24,6 @@ EUR.args = {
   money: {
     amount: 540000.2,
     currency: 'EUR',
-    localized: '',
   },
 }
 
@@ -37,6 +32,5 @@ PLN.args = {
   money: {
     amount: 540000.2,
     currency: 'PLN',
-    localized: '',
   },
 }
