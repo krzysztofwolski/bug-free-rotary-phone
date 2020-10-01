@@ -10,7 +10,7 @@ export interface IProductTileProps {
 
 export const ProductTile: React.FC<IProductTileProps> = ({ product }) => {
   return (
-    <Link href={`/product/${product?.slug}`}>
+    <Link href={`/product/${product?.slug}`.toString()}>
       <Box
         key={product?.id}
         maxW="sm"

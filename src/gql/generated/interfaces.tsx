@@ -1,6 +1,6 @@
 import * as Types from './schemas'
 
-export type ICategoryFragment = { __typename?: 'Category' } & Pick<
+export type ICategoryDetailsFragment = { __typename?: 'Category' } & Pick<
   Types.ICategory,
   'id' | 'slug' | 'name' | 'description'
 > & {
@@ -15,24 +15,12 @@ export type ICategoryFragment = { __typename?: 'Category' } & Pick<
     >
   }
 
-export type ICategoryDetailsBySlugVariables = Types.Exact<{
+export type ICategoryDetailsBySlugQueryVariables = Types.Exact<{
   slug: Types.Scalars['String']
 }>
 
-export type ICategoryDetailsBySlug = { __typename?: 'Query' } & {
-  category?: Types.Maybe<
-    { __typename?: 'Category' } & {
-      products?: Types.Maybe<
-        { __typename?: 'ProductCountableConnection' } & {
-          edges: Array<
-            { __typename?: 'ProductCountableEdge' } & {
-              node: { __typename?: 'Product' } & IProductDetailsFragment
-            }
-          >
-        }
-      >
-    }
-  >
+export type ICategoryDetailsBySlugQuery = { __typename?: 'Query' } & {
+  category?: Types.Maybe<{ __typename?: 'Category' } & ICategoryDetailsFragment>
 }
 
 export type ICollectionFragment = { __typename?: 'Collection' } & Pick<
@@ -87,6 +75,31 @@ export type IProductPricingInfoFragment = {
     >
   }
 
+export type IVariantPricingInfoFragment = {
+  __typename?: 'VariantPricingInfo'
+} & Pick<Types.IVariantPricingInfo, 'onSale'> & {
+    discount?: Types.Maybe<{ __typename?: 'TaxedMoney' } & ITaxedMoneyFragment>
+    discountLocalCurrency?: Types.Maybe<
+      { __typename?: 'TaxedMoney' } & ITaxedMoneyFragment
+    >
+    price?: Types.Maybe<{ __typename?: 'TaxedMoney' } & ITaxedMoneyFragment>
+    priceUndiscounted?: Types.Maybe<
+      { __typename?: 'TaxedMoney' } & ITaxedMoneyFragment
+    >
+    priceLocalCurrency?: Types.Maybe<
+      { __typename?: 'TaxedMoney' } & ITaxedMoneyFragment
+    >
+  }
+
+export type IProductVariantFragment = { __typename?: 'ProductVariant' } & Pick<
+  Types.IProductVariant,
+  'id' | 'name' | 'sku'
+> & {
+    pricing?: Types.Maybe<
+      { __typename?: 'VariantPricingInfo' } & IVariantPricingInfoFragment
+    >
+  }
+
 export type IImageFragment = { __typename?: 'Image' } & Pick<
   Types.IImage,
   'alt' | 'url'
@@ -96,17 +109,25 @@ export type IProductDetailsFragment = { __typename?: 'Product' } & Pick<
   Types.IProduct,
   'id' | 'name' | 'slug' | 'description'
 > & {
+    variants?: Types.Maybe<
+      Array<
+        Types.Maybe<{ __typename?: 'ProductVariant' } & IProductVariantFragment>
+      >
+    >
     category?: Types.Maybe<
-      { __typename?: 'Category' } & Pick<Types.ICategory, 'id' | 'name'> & {
+      { __typename?: 'Category' } & Pick<
+        Types.ICategory,
+        'id' | 'name' | 'slug'
+      > & {
           parent?: Types.Maybe<
             { __typename?: 'Category' } & Pick<
               Types.ICategory,
-              'id' | 'name'
+              'id' | 'name' | 'slug'
             > & {
                 parent?: Types.Maybe<
                   { __typename?: 'Category' } & Pick<
                     Types.ICategory,
-                    'id' | 'name'
+                    'id' | 'name' | 'slug'
                   >
                 >
               }
@@ -133,11 +154,11 @@ export type IFirstProductsQuery = { __typename?: 'Query' } & {
   >
 }
 
-export type IProductDetailsBySlugVariables = Types.Exact<{
+export type IProductDetailsBySlugQueryVariables = Types.Exact<{
   slug: Types.Scalars['String']
 }>
 
-export type IProductDetailsBySlug = { __typename?: 'Query' } & {
+export type IProductDetailsBySlugQuery = { __typename?: 'Query' } & {
   product?: Types.Maybe<{ __typename?: 'Product' } & IProductDetailsFragment>
 }
 

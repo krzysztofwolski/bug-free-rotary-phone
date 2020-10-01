@@ -25,15 +25,20 @@
       "warn",
       {
         "skipWords": [
-          "ctx",
-          "ssr",
-          "saleor",
+          "2xl",
+          "3xl",
           "apollo",
-          "uri",
-          "gql",
-          "undiscounted",
           "chakra",
-          "semibold"
+          "ctx",
+          "Decrement",
+          "gql",
+          "saleor",
+          "semibold",
+          "sku",
+          "ssr",
+          "undiscounted",
+          "uri",
+          "xl"
         ]
       }
     ]

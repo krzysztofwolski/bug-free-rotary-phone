@@ -30,9 +30,9 @@ export interface ITopNavbarProps {
 }
 
 export const TopNavbar: React.FC<ITopNavbarProps> = (props) => {
-  const [show, setShow] = React.useState(false)
+  const [show] = React.useState(false)
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const btnRef = React.useRef()
+  const btnRef = React.useRef<HTMLElement | null>(null)
   return (
     <>
       <Flex
@@ -50,9 +50,16 @@ export const TopNavbar: React.FC<ITopNavbarProps> = (props) => {
           alignItems="center"
           flexGrow={1}
         >
-          <Button ref={btnRef} bg="transparent" border="1px" onClick={onOpen}>
-            Menu
-          </Button>
+          {!!btnRef && (
+            <Button
+              // ref={btnRef.current}
+              bg="transparent"
+              border="1px"
+              onClick={onOpen}
+            >
+              Menu
+            </Button>
+          )}
         </Box>
         <Flex align="center" mr={5}>
           <Heading as="h1" size="lg" letterSpacing={'-.1rem'}>
@@ -69,7 +76,7 @@ export const TopNavbar: React.FC<ITopNavbarProps> = (props) => {
         isOpen={isOpen}
         placement="left"
         onClose={onClose}
-        finalFocusRef={btnRef}
+        // finalFocusRef={btnRef}
       >
         <DrawerOverlay />
         <DrawerContent>

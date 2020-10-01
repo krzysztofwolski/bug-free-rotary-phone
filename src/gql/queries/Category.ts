@@ -1,13 +1,13 @@
 import { gql } from '@apollo/client'
 import { ProductDetailsFragment } from './Products'
 
-export const CategoryFragment = gql`
-  fragment CategoryFragment on Category {
+export const CategoryDetailsFragment = gql`
+  fragment CategoryDetailsFragment on Category {
     id
     slug
     name
     description
-    products(first: 10) {
+    products(first: 50) {
       edges {
         node {
           ...ProductDetailsFragment
@@ -19,16 +19,10 @@ export const CategoryFragment = gql`
 `
 
 export const CategoryDetailsBySlugQuery = gql`
-  query CategoryDetailsBySlug($slug: String!) {
+  query CategoryDetailsBySlugQuery($slug: String!) {
     category(slug: $slug) {
-        products (first: 100){
-            edges {
-                node {
-                ...ProductDetailsFragment
-                }
-            }
-        }
+        ...CategoryDetailsFragment
     }
-    ${ProductDetailsFragment}
+    ${CategoryDetailsFragment}
   }
 `

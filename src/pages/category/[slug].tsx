@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router'
+import Error from 'next/error'
 import { DefaultLayout } from '../../components/templates'
 import { CategoryTemplate } from '../../components/templates/CategoryTemplate'
 import {
@@ -8,23 +9,24 @@ import {
 import { withApollo } from '../../gql/withApollo'
 
 const CategoryPage: React.FC = () => {
-  const router = useRouter()
-
-  if (!router?.query.slug) {
-    // TODO: 404
-    return <></>
-  }
+  const slug = useRouter().query.slug?.toString() || ''
   const {
     data: categoryData,
     loading: categoryLoading,
   } = useCategoryDetailsBySlugQuery({
     variables: {
-      slug: router?.query.slug,
+      slug,
     },
   })
+
   const { data: shopData } = useHomepageShopQuery({
     variables: {},
   })
+
+  if (!categoryLoading && !categoryData?.category) {
+    return <Error statusCode={404} />
+  }
+
   return (
     <DefaultLayout menu={shopData?.shop.navigation?.main}>
       <CategoryTemplate
@@ -34,5 +36,4 @@ const CategoryPage: React.FC = () => {
     </DefaultLayout>
   )
 }
-
 export default withApollo(CategoryPage)

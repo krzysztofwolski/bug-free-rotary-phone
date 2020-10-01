@@ -2,12 +2,6 @@ import * as Types from './interfaces'
 
 import { gql } from '@apollo/client'
 import * as Apollo from '@apollo/client'
-export const ImageFragmentDoc = gql`
-  fragment ImageFragment on Image {
-    alt
-    url
-  }
-`
 export const MoneyFragmentDoc = gql`
   fragment MoneyFragment on Money {
     amount
@@ -28,6 +22,44 @@ export const TaxedMoneyFragmentDoc = gql`
     }
   }
   ${MoneyFragmentDoc}
+`
+export const VariantPricingInfoFragmentDoc = gql`
+  fragment VariantPricingInfoFragment on VariantPricingInfo {
+    onSale
+    discount {
+      ...TaxedMoneyFragment
+    }
+    discountLocalCurrency {
+      ...TaxedMoneyFragment
+    }
+    price {
+      ...TaxedMoneyFragment
+    }
+    priceUndiscounted {
+      ...TaxedMoneyFragment
+    }
+    priceLocalCurrency {
+      ...TaxedMoneyFragment
+    }
+  }
+  ${TaxedMoneyFragmentDoc}
+`
+export const ProductVariantFragmentDoc = gql`
+  fragment ProductVariantFragment on ProductVariant {
+    id
+    name
+    sku
+    pricing {
+      ...VariantPricingInfoFragment
+    }
+  }
+  ${VariantPricingInfoFragmentDoc}
+`
+export const ImageFragmentDoc = gql`
+  fragment ImageFragment on Image {
+    alt
+    url
+  }
 `
 export const TaxedMoneyRangeFragmentDoc = gql`
   fragment TaxedMoneyRangeFragment on TaxedMoneyRange {
@@ -68,15 +100,21 @@ export const ProductDetailsFragmentDoc = gql`
     name
     slug
     description
+    variants {
+      ...ProductVariantFragment
+    }
     category {
       id
       name
+      slug
       parent {
         id
         name
+        slug
         parent {
           id
           name
+          slug
         }
       }
     }
@@ -87,16 +125,17 @@ export const ProductDetailsFragmentDoc = gql`
       ...ProductPricingInfoFragment
     }
   }
+  ${ProductVariantFragmentDoc}
   ${ImageFragmentDoc}
   ${ProductPricingInfoFragmentDoc}
 `
-export const CategoryFragmentDoc = gql`
-  fragment CategoryFragment on Category {
+export const CategoryDetailsFragmentDoc = gql`
+  fragment CategoryDetailsFragment on Category {
     id
     slug
     name
     description
-    products(first: 10) {
+    products(first: 50) {
       edges {
         node {
           ...ProductDetailsFragment
@@ -156,19 +195,13 @@ export const MenuFragmentDoc = gql`
   }
   ${MenuItemFragmentDoc}
 `
-export const CategoryDetailsBySlugDocument = gql`
-  query CategoryDetailsBySlug($slug: String!) {
+export const CategoryDetailsBySlugQueryDocument = gql`
+  query CategoryDetailsBySlugQuery($slug: String!) {
     category(slug: $slug) {
-      products(first: 100) {
-        edges {
-          node {
-            ...ProductDetailsFragment
-          }
-        }
-      }
+      ...CategoryDetailsFragment
     }
   }
-  ${ProductDetailsFragmentDoc}
+  ${CategoryDetailsFragmentDoc}
 `
 
 /**
@@ -196,9 +229,9 @@ export function useCategoryDetailsBySlugQuery(
   return Apollo.useQuery<
     Types.ICategoryDetailsBySlugQuery,
     Types.ICategoryDetailsBySlugQueryVariables
-  >(CategoryDetailsBySlugDocument, baseOptions)
+  >(CategoryDetailsBySlugQueryDocument, baseOptions)
 }
-export function useCategoryDetailsBySlugLazyQuery(
+export function useCategoryDetailsBySlugQueryLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
     Types.ICategoryDetailsBySlugQuery,
     Types.ICategoryDetailsBySlugQueryVariables
@@ -207,22 +240,22 @@ export function useCategoryDetailsBySlugLazyQuery(
   return Apollo.useLazyQuery<
     Types.ICategoryDetailsBySlugQuery,
     Types.ICategoryDetailsBySlugQueryVariables
-  >(CategoryDetailsBySlugDocument, baseOptions)
+  >(CategoryDetailsBySlugQueryDocument, baseOptions)
 }
 export type CategoryDetailsBySlugQueryHookResult = ReturnType<
   typeof useCategoryDetailsBySlugQuery
 >
-export type CategoryDetailsBySlugLazyQueryHookResult = ReturnType<
-  typeof useCategoryDetailsBySlugLazyQuery
+export type CategoryDetailsBySlugQueryLazyQueryHookResult = ReturnType<
+  typeof useCategoryDetailsBySlugQueryLazyQuery
 >
-export type CategoryDetailsBySlugQueryResult = Apollo.QueryResult<
+export type CategoryDetailsBySlugQueryQueryResult = Apollo.QueryResult<
   Types.ICategoryDetailsBySlugQuery,
   Types.ICategoryDetailsBySlugQueryVariables
 >
 export function refetchCategoryDetailsBySlugQuery(
   variables?: Types.ICategoryDetailsBySlugQueryVariables
 ) {
-  return { query: CategoryDetailsBySlugDocument, variables: variables }
+  return { query: CategoryDetailsBySlugQueryDocument, variables: variables }
 }
 export const FirstProductsQueryDocument = gql`
   query FirstProductsQuery {
@@ -289,8 +322,8 @@ export function refetchFirstProductsQuery(
 ) {
   return { query: FirstProductsQueryDocument, variables: variables }
 }
-export const ProductDetailsBySlugDocument = gql`
-  query ProductDetailsBySlug($slug: String!) {
+export const ProductDetailsBySlugQueryDocument = gql`
+  query ProductDetailsBySlugQuery($slug: String!) {
     product(slug: $slug) {
       ...ProductDetailsFragment
     }
@@ -323,9 +356,9 @@ export function useProductDetailsBySlugQuery(
   return Apollo.useQuery<
     Types.IProductDetailsBySlugQuery,
     Types.IProductDetailsBySlugQueryVariables
-  >(ProductDetailsBySlugDocument, baseOptions)
+  >(ProductDetailsBySlugQueryDocument, baseOptions)
 }
-export function useProductDetailsBySlugLazyQuery(
+export function useProductDetailsBySlugQueryLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
     Types.IProductDetailsBySlugQuery,
     Types.IProductDetailsBySlugQueryVariables
@@ -334,22 +367,22 @@ export function useProductDetailsBySlugLazyQuery(
   return Apollo.useLazyQuery<
     Types.IProductDetailsBySlugQuery,
     Types.IProductDetailsBySlugQueryVariables
-  >(ProductDetailsBySlugDocument, baseOptions)
+  >(ProductDetailsBySlugQueryDocument, baseOptions)
 }
 export type ProductDetailsBySlugQueryHookResult = ReturnType<
   typeof useProductDetailsBySlugQuery
 >
-export type ProductDetailsBySlugLazyQueryHookResult = ReturnType<
-  typeof useProductDetailsBySlugLazyQuery
+export type ProductDetailsBySlugQueryLazyQueryHookResult = ReturnType<
+  typeof useProductDetailsBySlugQueryLazyQuery
 >
-export type ProductDetailsBySlugQueryResult = Apollo.QueryResult<
+export type ProductDetailsBySlugQueryQueryResult = Apollo.QueryResult<
   Types.IProductDetailsBySlugQuery,
   Types.IProductDetailsBySlugQueryVariables
 >
 export function refetchProductDetailsBySlugQuery(
   variables?: Types.IProductDetailsBySlugQueryVariables
 ) {
-  return { query: ProductDetailsBySlugDocument, variables: variables }
+  return { query: ProductDetailsBySlugQueryDocument, variables: variables }
 }
 export const HomepageShopQueryDocument = gql`
   query HomepageShopQuery {

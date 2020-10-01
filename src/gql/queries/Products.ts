@@ -60,6 +60,40 @@ export const ProductPricingInfoFragment = gql`
   ${TaxedMoneyRangeFragment}
 `
 
+export const VariantPricingInfoFragment = gql`
+  fragment VariantPricingInfoFragment on VariantPricingInfo {
+    onSale
+    discount {
+      ...TaxedMoneyFragment
+    }
+    discountLocalCurrency {
+      ...TaxedMoneyFragment
+    }
+    price {
+      ...TaxedMoneyFragment
+    }
+    priceUndiscounted {
+      ...TaxedMoneyFragment
+    }
+    priceLocalCurrency {
+      ...TaxedMoneyFragment
+    }
+  }
+  ${TaxedMoneyFragment}
+`
+
+export const ProductVariantFragment = gql`
+  fragment ProductVariantFragment on ProductVariant {
+    id
+    name
+    sku
+    pricing {
+      ...VariantPricingInfoFragment
+    }
+  }
+  ${VariantPricingInfoFragment}
+`
+
 export const ImageFragment = gql`
   fragment ImageFragment on Image {
     alt
@@ -73,15 +107,21 @@ export const ProductDetailsFragment = gql`
     name
     slug
     description
+    variants {
+      ...ProductVariantFragment
+    }
     category {
       id
       name
+      slug
       parent {
         id
         name
+        slug
         parent {
           id
           name
+          slug
         }
       }
     }
@@ -92,6 +132,7 @@ export const ProductDetailsFragment = gql`
       ...ProductPricingInfoFragment
     }
   }
+  ${ProductVariantFragment}
   ${ProductPricingInfoFragment}
   ${ImageFragment}
 `
@@ -110,7 +151,7 @@ export const FirstProductsQuery = gql`
 `
 
 export const ProductDetailsBySlugQuery = gql`
-  query ProductDetailsBySlug($slug: String!) {
+  query ProductDetailsBySlugQuery($slug: String!) {
     product(slug: $slug) {
       ...ProductDetailsFragment
     }

@@ -1,10 +1,10 @@
 import { Center, Spinner } from '@chakra-ui/core'
 import React from 'react'
-import { ICategoryFragment } from '../../../gql/generated/interfaces'
+import { ICategoryDetailsFragment } from '../../../gql/generated/interfaces'
 import { ProductList } from '../../organisms'
 
 export interface CategoryTemplateProps {
-  category?: ICategoryFragment | null
+  category?: ICategoryDetailsFragment | null
   isLoading: boolean
 }
 

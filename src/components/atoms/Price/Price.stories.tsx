@@ -16,7 +16,6 @@ USD.args = {
   money: {
     amount: 540000.2,
     currency: 'USD',
-    localized: '',
   },
 }
 
@@ -25,7 +24,6 @@ EUR.args = {
   money: {
     amount: 540000.2,
     currency: 'EUR',
-    localized: '',
   },
 }
 
@@ -34,6 +32,5 @@ PLN.args = {
   money: {
     amount: 540000.2,
     currency: 'PLN',
-    localized: '',
   },
 }

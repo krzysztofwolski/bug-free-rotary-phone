@@ -1,4 +1,5 @@
 import { useRouter, withRouter } from 'next/router'
+import Error from 'next/error'
 import { DefaultLayout } from '../../components/templates'
 import { ProductDetailsTemplate } from '../../components/templates/ProductDetailsTemplate'
 import {
@@ -8,11 +9,7 @@ import {
 import { withApollo } from '../../gql/withApollo'
 
 const ProductDetailsPage: React.FC = () => {
-  const slug = useRouter().query.productSlug
-  if (!slug) {
-    // TODO: 404
-    return <>404</>
-  }
+  const slug = useRouter().query.slug?.toString() || ''
   const {
     data: productData,
     loading: productLoading,
@@ -24,6 +21,10 @@ const ProductDetailsPage: React.FC = () => {
   const { data: shopData } = useHomepageShopQuery({
     variables: {},
   })
+
+  if (!productLoading && !productData?.product) {
+    return <Error statusCode={404} />
+  }
   return (
     <DefaultLayout menu={shopData?.shop.navigation?.main}>
       <ProductDetailsTemplate
@@ -33,5 +34,4 @@ const ProductDetailsPage: React.FC = () => {
     </DefaultLayout>
   )
 }
-
 export default withApollo(withRouter(ProductDetailsPage))

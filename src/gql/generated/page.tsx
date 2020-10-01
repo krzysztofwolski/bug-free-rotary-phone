@@ -26,7 +26,7 @@ export async function getServerPageCategoryDetailsBySlug<
 
   const data = await apolloClient.query<Types.ICategoryDetailsBySlugQuery>({
     ...options,
-    query: Operations.CategoryDetailsBySlugDocument,
+    query: Operations.CategoryDetailsBySlugQueryDocument,
   })
   if (rawQueryResult) {
     return {
@@ -50,7 +50,7 @@ export const useCategoryDetailsBySlug = (
 ) => {
   const router = useRouter()
   const options = optionsFunc ? optionsFunc(router) : {}
-  return useQuery(Operations.CategoryDetailsBySlugDocument, options)
+  return useQuery(Operations.CategoryDetailsBySlugQueryDocument, options)
 }
 export type PageCategoryDetailsBySlugComp = React.FC<{
   data?: Types.ICategoryDetailsBySlugQuery
@@ -67,7 +67,7 @@ export const withPageCategoryDetailsBySlug = (
   const router = useRouter()
   const options = optionsFunc ? optionsFunc(router) : {}
   const { data, error } = useQuery(
-    Operations.CategoryDetailsBySlugDocument,
+    Operations.CategoryDetailsBySlugQueryDocument,
     options
   )
   return <WrappedComponent {...props} data={data} error={error} />
@@ -160,7 +160,7 @@ export async function getServerPageProductDetailsBySlug<T extends true | false>(
 
   const data = await apolloClient.query<Types.IProductDetailsBySlugQuery>({
     ...options,
-    query: Operations.ProductDetailsBySlugDocument,
+    query: Operations.ProductDetailsBySlugQueryDocument,
   })
   if (rawQueryResult) {
     return {
@@ -184,7 +184,7 @@ export const useProductDetailsBySlug = (
 ) => {
   const router = useRouter()
   const options = optionsFunc ? optionsFunc(router) : {}
-  return useQuery(Operations.ProductDetailsBySlugDocument, options)
+  return useQuery(Operations.ProductDetailsBySlugQueryDocument, options)
 }
 export type PageProductDetailsBySlugComp = React.FC<{
   data?: Types.IProductDetailsBySlugQuery
@@ -201,7 +201,7 @@ export const withPageProductDetailsBySlug = (
   const router = useRouter()
   const options = optionsFunc ? optionsFunc(router) : {}
   const { data, error } = useQuery(
-    Operations.ProductDetailsBySlugDocument,
+    Operations.ProductDetailsBySlugQueryDocument,
     options
   )
   return <WrappedComponent {...props} data={data} error={error} />
