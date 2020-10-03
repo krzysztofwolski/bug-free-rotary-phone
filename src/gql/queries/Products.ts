@@ -125,7 +125,7 @@ export const ProductDetailsFragment = gql`
         }
       }
     }
-    thumbnail(size: 500) {
+    thumbnail(size: 200) {
       ...ImageFragment
     }
     pricing {

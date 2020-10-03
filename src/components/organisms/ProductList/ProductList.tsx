@@ -10,7 +10,7 @@ export interface IProductListProps {
 export const ProductList: React.FC<IProductListProps> = ({ products }) => {
   return (
     <Box alignContent="center" padding="20px">
-      <SimpleGrid minChildWidth="340px" spacing="40px">
+      <SimpleGrid minChildWidth="200px" spacing="40px">
         {products.map((product) => (
           <ProductTile key={product.id} product={product} />
         ))}

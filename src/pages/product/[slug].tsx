@@ -1,4 +1,4 @@
-import { useRouter, withRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import Error from 'next/error'
 import { DefaultLayout } from '../../components/templates'
 import { ProductDetailsTemplate } from '../../components/templates/ProductDetailsTemplate'
@@ -34,4 +34,4 @@ const ProductDetailsPage: React.FC = () => {
     </DefaultLayout>
   )
 }
-export default withApollo(withRouter(ProductDetailsPage))
+export default withApollo(ProductDetailsPage)
